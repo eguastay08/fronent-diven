@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+
+$sidebar-bg-color: #294a70;
+$submenu-bg-color: rgba(255, 255, 255, 0.05);
+$submenu-bg-color-collapsed: rgba(41, 74, 112, 0.95);
+$sidebar-color: white;
+$highlight-color: white;
+$icon-bg-color: rgba(255, 255, 255, 0.05);
+$icon-size: 35px;
+$sidebar-width: 300px;
+
+@import "~react-pro-sidebar/dist/scss/styles.scss";
+@import "~bootstrap/dist/css/bootstrap-grid.css";
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~alertifyjs/build/css/alertify.min.css";
+@import "~alertifyjs/build/css/themes/bootstrap.min.css";
+
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: "Roboto", sans-serif !important;
+}
+
+#root {
+  height: 100%;
+}
+
