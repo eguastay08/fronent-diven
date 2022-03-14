@@ -1,0 +1,40 @@
+.members{
+  display: inline-block;
+  border: solid 1px #878a8c;
+  width: 100%;
+  table{
+    width: 100%;
+    margin-bottom: 1rem;
+    color: #1d2125;
+    border-collapse: collapse;
+    td{
+      padding: 10px;
+    }
+    select.form-control[size], select.form-control[multiple] {
+      height: auto;
+      overflow: auto;
+    }
+    .btns{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      align-content: center;
+      justify-content: center;
+      height: 500px;
+      input{
+        width: 115px;
+        height: 30px;
+        margin-bottom: 10px;
+      }
+    }
+    .search{
+      padding: 10px 25px;
+    }
+    #members{
+      min-width: 250px;
+    }
+
+  }
+
+}
+

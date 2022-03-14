@@ -1,0 +1,63 @@
+.loading-header {
+  height: 64px;
+  position: fixed;
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  border :1px solid #dddddd;
+  .background {
+    animation-duration: 7s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: preloadAnimation;
+    animation-timing-function: linear;
+    background: #f6f7f8;
+    background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+    display: flex;
+    height: 100%;
+    position: relative;
+
+    @keyframes preloadAnimation {
+      0% {
+        background-position: -769px 0;
+      }
+      100% {
+        background-position: 769px 0;
+      }
+    }
+  }
+  .logo {
+    width: 270px;
+    height: 100%;
+  }
+  .image {
+    margin-left: auto;
+    margin-right: 10px;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    .background {
+      border-radius: 50%;
+      animation-duration: 30s;
+    }
+  }
+  .data-user {
+    margin-right: 10px;
+    height: 100%;
+    width: 355px;
+
+    .t-name {
+      background: white;
+      height: 10px;
+      width: 100%;
+      position: absolute;
+    }
+    .b-name {
+      background: white;
+      height: 10px;
+      width: 100%;
+      bottom: 0;
+      position: absolute;
+    }
+  }
+}
