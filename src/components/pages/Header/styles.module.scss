@@ -37,9 +37,13 @@ header{
     }
   }
 
-  @media (max-width: 420px) {
+  @media (max-width: 768px) {
+
     .datauser{
       display: none;
+    }
+    .logo{
+      margin: 0 auto;
     }
     .bar {
       cursor: pointer;

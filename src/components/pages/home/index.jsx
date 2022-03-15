@@ -1,4 +1,4 @@
 const Home =()=>{
-  return "home"
+  return <></>
 }
 export default Home

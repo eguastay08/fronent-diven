@@ -19,7 +19,7 @@ const Users=(props)=>{
   const [sroles, setSroles] = useState([]);
 
   useEffect(() => {
-    store.dispatch(getRoles())
+    //store.dispatch(getRoles())
     store.dispatch(getUsers())
   }, [match])
 
@@ -69,7 +69,11 @@ const Users=(props)=>{
   }, [deleteuser])
 
   const handleClose = () => setShow(false)
-  const handleShow = () => setShow(true)
+
+  const handleShow = () => {
+    store.dispatch(getRoles())
+    setShow(true)
+  }
 
   const handleSubmit=(e)=>{
     e.preventDefault()

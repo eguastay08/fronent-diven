@@ -1,7 +1,7 @@
 import '../styles/style.scss'
 import style from '../styles/styles.module.scss'
 import {Public} from "./routes/Public";
-import {Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import Login from "./pages/login"
 import LoginGoogle from "./organisms/LoginGoogle";
 import Protected from "./routes/Protected";
@@ -17,6 +17,7 @@ import Surveys from "./pages/surveys";
 import SurveyEdit from "./pages/surveyedit";
 import SurveyView from "./pages/surveyview";
 import {useState} from "react";
+import Error404 from "./pages/Error/Error404";
 
 const App=()=> {
   const [scrooltop, setScrooltop] = useState(0);
@@ -28,6 +29,7 @@ const App=()=> {
           <Route path="/login/google" exact element={<Public><LoginGoogle/></Public>}/>
 
           <Route path="/logout" exact element={<Logout/>}/>
+          <Route path="/" element={<Navigate replace to="/home" />} />
           <Route path="/home" exact element={<Protected><Home/></Protected>}/>
           <Route path="/roles" exact element={<Protected><Roles/></Protected>}/>
           <Route path="/roles/:id" exact element={<Protected><Form/></Protected>}/>
@@ -42,6 +44,7 @@ const App=()=> {
               <SurveyEdit scrooltop={scrooltop}/>
             </Protected>}/>
           <Route path="/surveys/:id/view" exact element={<Protected><SurveyView/></Protected>}/>
+          <Route path="*" element={<Error404/>} />
         </Routes>
     </div>
   );

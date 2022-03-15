@@ -27,11 +27,10 @@ import Textarea from "../../molecules/textarea/textarea";
 
 const Projects=(props)=>{
 
-  const {projects,match, provinces,dpa,postproject,putproject, project,deleteproject}=props
+  const {projects,match, provinces,dpa,postproject,putproject, project,deleteproject,userloggedin}=props
   const [show, setShow] = useState(false);
   const [btnSubmit, setBtnSubmit] = useState(false);
   const [btnSubmitValue, setBtnSubmitValue] = useState('post');
-  const [postProject, setPostProject] = useState(true);
   const [dataprovinces, setDataProvinces] = useState([]);
   const [datacanton, setDataCanton] = useState([]);
   const [dataparish, setDataParish] = useState([]);
@@ -39,6 +38,14 @@ const Projects=(props)=>{
   const [resolution, setResolution] = useState();
   const [detail, setDetail] = useState();
   const [cod_dpa, setCodDpa] = useState();
+  //access
+  const [postProject, setPostProject] = useState(false);
+  const [putProject, setPutProject] = useState(false);
+  const [deleteProject, setDeleteProject] = useState(false);
+  const [postProjectMembers, setPostProjectMembers] = useState(false);
+  const [deleteProjectMembers, setDeleteProjectMembers] = useState(false);
+  const [getSurveysProject, setGetSurveysProject] = useState(false);
+
   //contextmenu
   const [showContextMenu, setShowContextMenu] = useState('none');
   const [topContextMenu, setTopContextMenu] = useState(0);
@@ -49,6 +56,31 @@ const Projects=(props)=>{
   useEffect(() => {
     store.dispatch(getProjects())
   }, [match])
+
+
+  useEffect(() => {
+    Array.isArray(userloggedin.access) ? userloggedin.access.map((e, index) => {
+      if(e.endpoint==='/projects' && e.method==='POST')
+        setPostProject(true)
+
+      if(e.endpoint==='/projects' && e.method==='PUT')
+        setPutProject(true)
+
+      if(e.endpoint==='/projects' && e.method==='DELETE')
+        setDeleteProject(true)
+
+      if(e.endpoint==='/projects/{project}/members' && e.method==='POST')
+        setPostProjectMembers(true)
+
+      if(e.endpoint==='/projects/{project}/members' && e.method==='DELETE')
+        setDeleteProjectMembers(true)
+
+      if(e.endpoint==='/projects/{project}/surveys' && e.method==='GET')
+        setGetSurveysProject(true)
+
+    }):<></>
+  }, [userloggedin])
+
 
 
   useEffect(() => {
@@ -219,14 +251,14 @@ const Projects=(props)=>{
         </div>
       </div>
     </div>
-    <div className={style.menu} style={{display:showContextMenu,top:`${topContextMenu}px`,left:`${leftContextMenu}px`}} >
+    {getSurveysProject|postProjectMembers|putProject|deleteProject?<div className={style.menu} style={{display:showContextMenu,top:`${topContextMenu}px`,left:`${leftContextMenu}px`}} >
       <ul className={style.options}>
-        <li className={style.option}><Link to={`/projects/${codproject}/surveys`}>Encuestas</Link></li>
-        <li className={style.option}><Link to={`/projects/${codproject}/members`}>Miembros</Link></li>
-        <li className={style.option} onClick={handleClickMod}>Modificar</li>
-        <li className={style.option} onClick={handleClickDel}>Eliminar</li>
+        {getSurveysProject?<li className={style.option}><Link to={`/projects/${codproject}/surveys`}>Encuestas</Link></li>:<></>}
+        {putProject&&postProjectMembers||putProject&&deleteProjectMembers?<li className={style.option}><Link to={`/projects/${codproject}/members`}>Miembros</Link></li>:<></>}
+        {putProject?<li className={style.option} onClick={handleClickMod}>Modificar</li>:<></>}
+        {deleteProject?<li className={style.option} onClick={handleClickDel}>Eliminar</li>:<></>}
       </ul>
-    </div>
+    </div>:<></>}
     <Modal
       show={show}
       onHide={handleClose}
@@ -310,7 +342,8 @@ const mapStateToProps = (state) => ({
   postproject:state.PostProjectState,
   putproject:state.PutProjectState,
   deleteproject:state.DeleteProjectState,
-  project:state.ProjectState
+  project:state.ProjectState,
+  userloggedin: state.userLoggedInState
 })
 
 const mapDispatchToProps = {

@@ -37,11 +37,6 @@ const SurveyView=(props)=>{
     <div className="card">
       <div className="card-header">
         <div className={style.row}>
-          <div className={style.logo}>
-            <Link to="/">
-              <img src={logo} alt="Logo DIVEN" />
-            </Link>
-          </div>
           <h6 className="col-11 m-0 font-weight-bold text-primary"> Vista Previa {surveyname}</h6>
         </div>
       </div>

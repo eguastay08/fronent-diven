@@ -1,11 +1,11 @@
 .container {
   display: flex;
-  flex-direction: column;
+  flex-direction: initial;
   flex-wrap: wrap;
   align-content: space-evenly;
 
   .login {
-    position: absolute;
+    position: relative;
     top: 0px;
     display: flex;
     flex-direction: column;
@@ -81,13 +81,7 @@
     }
   }
 
-  @media (max-width: 730px) {
-    .login {
-      box-shadow: none;
-    }
-  }
-
-  @media (max-width: 420px) {
+  @media (max-width: 480px) {
     .login {
       width: 100%;
       .cform{
@@ -99,9 +93,16 @@
     }
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: 850px) {
     .login {
-      margin-left: 0px;
+      max-width: 400px;
+      margin: 0 auto;
+      .cform{
+        padding: 25px;
+      }
+    }
+    .img{
+      display: none;
     }
   }
 }

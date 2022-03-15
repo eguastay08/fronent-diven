@@ -22,7 +22,7 @@ import alertify from "alertifyjs";
 
 const SurveyEdit=(props)=>{
   const { id } = useParams()
-  const{match,survey,postsection,putsection,deletequestion,putquestion,postquestion,scrooltop}=props
+  const{match,survey,postsection,putsection,deletequestion,putquestion,postquestion,scrooltop,userloggedin}=props
   const [surveyname, setSurveyName] = useState('');
   const [top, setTop] = useState(0);
   const [sections, setSections] = useState([]);
@@ -36,9 +36,20 @@ const SurveyEdit=(props)=>{
   //QUESTIONS
   const [cod_question, setCod_question] = useState(null);
 
-  useEffect(()=>{
+  //ACCESS
+  const [postSurvey, setPostSurvey] = useState(false);
 
-  })
+  useEffect(() => {
+    Array.isArray(userloggedin.access) ? userloggedin.access.map((e, index) => {
+
+      if(e.endpoint==='/projects/{project}/surveys' && e.method==='POST')
+        setPostSurvey(true)
+
+    }):<></>
+  }, [userloggedin])
+
+
+
 
   useEffect(() => {
     store.dispatch(getSurvey(id))
@@ -205,14 +216,10 @@ const SurveyEdit=(props)=>{
     }
 
   return <>
+    {postSurvey?
     <div className="card">
       <div className="card-header">
         <div className={style.row}>
-          <div className={style.logo}>
-            <Link to="/">
-              <img src={logo} alt="Logo DIVEN" />
-            </Link>
-          </div>
           <h6 className="col-11 m-0 font-weight-bold text-primary">{surveyname}</h6>
           <span>{saving}</span>
         </div>
@@ -264,7 +271,7 @@ const SurveyEdit=(props)=>{
           </div>
         </div>
       </div>
-    </div>
+    </div>:<></>}
   </>
 }
 
@@ -275,7 +282,8 @@ const mapStateToProps = (state) => ({
   //QUESTIONS
   deletequestion:state.DeleteQuestionState,
   putquestion:state.PutQuestionState,
-  postquestion:state.PostQuestionState
+  postquestion:state.PostQuestionState,
+  userloggedin: state.userLoggedInState
 })
 
 const mapDispatchProps={

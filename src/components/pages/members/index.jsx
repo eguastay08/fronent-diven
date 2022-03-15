@@ -17,7 +17,7 @@ import alertify from "alertifyjs";
 
 const Members=(props)=>{
   const { id } = useParams()
-  const {project, match, members, deletemember,postmember} =props
+  const {project, match, members, deletemember,postmember,userloggedin} =props
 
   const [name, setName] = useState();
   const [lusers, setLUsers] = useState([]);
@@ -28,6 +28,24 @@ const Members=(props)=>{
   const [searchmembers, setSearchmembers] = useState();
   const [btnSubmitAdd, setBtnSubmitAdd] = useState(false);
   const [btnSubmitDel, setBtnSubmitDel] = useState(false);
+
+  //ACCESS
+  const [deleteProjectMembers, setDeleteProjectMembers] = useState(false);
+  const [postProjectMembers, setPostProjectMembers] = useState(false);
+
+
+  useEffect(() => {
+    Array.isArray(userloggedin.access) ? userloggedin.access.map((e, index) => {
+
+    if(e.endpoint==='/projects/{project}/members' && e.method==='POST')
+      setPostProjectMembers(true)
+
+    if(e.endpoint==='/projects/{project}/members' && e.method==='DELETE')
+      setDeleteProjectMembers(true)
+
+    }):<></>
+  }, [userloggedin])
+
 
   useEffect(() => {
     store.dispatch(getProject(id))
@@ -166,8 +184,8 @@ const Members=(props)=>{
                   </div>
                 </td>
                 <td className={style.btns}>
-                    <input disabled={btnSubmitAdd} onClick={handleClickAdd} type="submit" value="◄&nbsp;Agregar"/>
-                    <input disabled={btnSubmitDel} onClick={handleClickDel} type="submit" value="Quitar&nbsp;►"/>
+                  {postProjectMembers?<input disabled={btnSubmitAdd} onClick={handleClickAdd} type="submit" value="◄&nbsp;Agregar"/>:<></>}
+                  {deleteProjectMembers?<input disabled={btnSubmitDel} onClick={handleClickDel} type="submit" value="Quitar&nbsp;►"/>:<></>}
                 </td>
                 <td>
                   <p><b>Usuarios</b></p>
@@ -205,7 +223,8 @@ const mapStateToProps = (state) => ({
   project:state.ProjectState,
   members:state.MembersState,
   deletemember:state.DeleteMemberState,
-  postmember:state.PostMemberState
+  postmember:state.PostMemberState,
+  userloggedin: state.userLoggedInState
 })
 
 const mapDispatchProps={

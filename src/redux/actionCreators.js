@@ -39,11 +39,11 @@ const verifyError=(error)=>{
       const uri = window.location.pathname+encodeURIComponent(window.location.search)
       window.location.href = `/login?path=${uri}`
     }
-    if(error.status===500){
-     // window.location.href = `/notfound`
+    if(error.status===500 || error.status===404 || error.status===403){
+      window.location.href = `/404`
     }
   }catch(e){
-   // window.location.href = `/notfound`
+    window.location.href = `/404`
   }
 
 }

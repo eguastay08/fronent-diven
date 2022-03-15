@@ -18,9 +18,8 @@ import alertify from "alertifyjs";
 
 const Surveys=(props)=>{
   const { id } = useParams()
-  const {project,match, surveys,postsurvey,deletesurvey,survey,putsurvey}= props
+  const {project,match, surveys,postsurvey,deletesurvey,survey,putsurvey,userloggedin}= props
   const [show, setShow] = useState(false);
-  const [postSurvey, setPostSurvey] = useState(true);
   const [nameproject, setNameProject] = useState();
   const [btnSubmit, setBtnSubmit] = useState(false);
   const [name, setName] = useState('');
@@ -35,6 +34,27 @@ const Surveys=(props)=>{
   const [leftContextMenu, setLeftContextMenu] = useState(0);
   const [codsurvey, setCodSurvey] = useState(null);
   const [update, setUpdate] = useState(false);
+
+  //ACCESS
+  const [postSurvey, setPostSurvey] = useState(false);
+  const [putSurvey, setPutSurvey] = useState(false);
+  const [deleteSurvey, setDeleteSurvey] = useState(false);
+
+  useEffect(() => {
+    Array.isArray(userloggedin.access) ? userloggedin.access.map((e, index) => {
+
+      if(e.endpoint==='/projects/{project}/surveys' && e.method==='POST')
+        setPostSurvey(true)
+
+      if(e.endpoint==='/surveys' && e.method==='PUT')
+        setPutSurvey(true)
+
+      if(e.endpoint==='/surveys' && e.method==='DELETE')
+        setDeleteSurvey(true)
+
+    }):<></>
+  }, [userloggedin])
+
 
   useEffect(() => {
     store.dispatch(getProject(id))
@@ -188,6 +208,7 @@ const Surveys=(props)=>{
             {
               Array.isArray(surveys.surveys)?surveys.surveys.map((e, index) => {
                return <Card key={index}
+                            putSurvey={putSurvey}
                             onContextMenu={handleContextMenu}
                             onChange={handleChangeStatus}
                             onClick={handleClick}
@@ -201,10 +222,10 @@ const Surveys=(props)=>{
     </div>
     <div className={style.menu} style={{display:showContextMenu,top:`${topContextMenu}px`,left:`${leftContextMenu}px`}} >
       <ul className={style.options}>
-        <li className={style.option}><Link to={`/surveys/${codsurvey}/edit`}>Preguntas</Link></li>
+        {postSurvey?<li className={style.option}><Link to={`/surveys/${codsurvey}/edit`}>Preguntas</Link></li>:<></>}
         <li className={style.option}><Link to={`/surveys/${codsurvey}/view`}>Vista Previa</Link></li>
-        <li className={style.option} onClick={handleClickMod}>Modificar</li>
-        <li className={style.option} onClick={handleClickDel}>Eliminar</li>
+        {putSurvey?<li className={style.option} onClick={handleClickMod}>Modificar</li>:<></>}
+        {deleteSurvey?<li className={style.option} onClick={handleClickDel}>Eliminar</li>:<></>}
       </ul>
     </div>
     <Modal
@@ -278,7 +299,8 @@ const mapStateToProps = (state) => ({
   postsurvey:state.PostSurveyState,
   putsurvey:state.PutSurveyState,
   deletesurvey:state.DeleteSurveyState,
-  survey:state.SurveyState
+  survey:state.SurveyState,
+  userloggedin: state.userLoggedInState
 })
 
 const mapDispatchProps={

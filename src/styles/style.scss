@@ -119,3 +119,13 @@ body {
   content: attr(data-count);
   display: block;
 }
+
+.btn-logout-bar{
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .btn-logout-bar{
+    display: block;
+  }
+}
