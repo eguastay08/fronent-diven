@@ -55,10 +55,10 @@ const Nav=(props)=>{
           </span>
         </div>
       </SidebarFooter>
-      <div className={style.footer}>
+      {!collapsed?<div className={style.footer}>
         <div>Copyright © 2022</div>
         <div>Vicerrectorado de Investigación y Vinculación| UEB</div>
-      </div>
+      </div>:<></>}
     </ProSidebar>)
 }
 const mapStateToProps = (state) => ({

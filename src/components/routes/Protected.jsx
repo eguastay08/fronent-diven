@@ -34,7 +34,8 @@ const Protected=({match,setScrooltop, children })=>{
 
 
   const handleScroll=(e)=> {
-    setScrooltop(e.target.scrollTop)
+    if(setScrooltop)
+      setScrooltop(e.target.scrollTop)
   };
 
   return (
