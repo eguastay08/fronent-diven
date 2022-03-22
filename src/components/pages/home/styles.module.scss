@@ -1,0 +1,38 @@
+.home{
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  padding: 10px 50px;
+  .title{
+    color: #0b283f;
+    font-size: 25px;
+    text-align: center;
+    font-weight: bold;
+  }
+  .body{
+    color: rgba(0, 0, 0, 0.65);
+    text-align: center;
+  }
+  .footer{
+    display: flex;
+    flex-direction: column;
+    .img{
+      display: flex;
+      text-align: center;
+      div{
+        margin: 10px;
+      }
+    }
+    @media (max-width: 768px) {
+      .img{
+        flex-direction: column;
+      }
+    }
+
+    .subtitle{
+      color: #0b283f;
+      font-weight: bold;
+    }
+  }
+}
