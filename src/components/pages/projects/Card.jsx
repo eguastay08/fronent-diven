@@ -13,9 +13,6 @@ const Card=(props)=>{
       </div>
     </div>
     <div onClick={onClick}  className={style.body}>
-      <div className={style.img}>
-        <img src="https://www.gravatar.com/avatar/618fe1a3e7a342df99aea1e492bcbd7f"/>
-      </div>
       <div className={style.text}>
         <div>
           <b>Resolución:</b> {resolution}
