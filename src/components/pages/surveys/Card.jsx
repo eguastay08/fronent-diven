@@ -2,7 +2,7 @@ import style from './styles.module.scss'
 import {FaEllipsisV} from "react-icons/fa";
 
 const Card=(props)=>{
-  const {name,date_init,date_finally,status,detail,max_answers,onClick,onContextMenu,cod_survey,onChange,putSurvey} =props
+  const {name,date_init,date_finally,status,detail,max_answers,tot,onClick,onContextMenu,cod_survey,onChange,putSurvey} =props
   let dt = new Date(date_init)
   const di=dt.toLocaleString()
    dt = new Date(date_finally)
@@ -34,7 +34,7 @@ const Card=(props)=>{
           <b>Estado:</b> {status?'Producción':'Diseño'}
         </div>
         <div>
-          <b>Respuestas:</b> {max_answers}
+          <b>Respuestas:</b> {tot} de {max_answers}
         </div>
         <div>
           <b>Detalle:</b> {detail}

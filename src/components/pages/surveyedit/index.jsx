@@ -22,7 +22,7 @@ import alertify from "alertifyjs";
 
 const SurveyEdit=(props)=>{
   const { id } = useParams()
-  const{match,survey,postsection,putsection,deletequestion,deletesection,putquestion,postquestion,scrooltop,userloggedin}=props
+  const{cod_survey,match,survey,postsection,putsection,deletequestion,deletesection,putquestion,postquestion,scrooltop,userloggedin}=props
   const [surveyname, setSurveyName] = useState('');
   const [top, setTop] = useState(0);
   const [sections, setSections] = useState([]);
@@ -256,6 +256,7 @@ const SurveyEdit=(props)=>{
                       {
                         e.questions.map((e,i)=>{
                           return <Question
+                            cod_survey={id}
                           stsave={setSaving}
                           key={i}
                           handleClick={handleClickDelQuestion}

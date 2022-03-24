@@ -57,9 +57,7 @@ const Question=(props)=>{
       value: "numerical"
     }
   ]
-  useEffect(() => {
-    console.log(options)
-  }, [options]);
+
 
   useEffect(() => {
     if(putoption.option){
@@ -83,7 +81,6 @@ const Question=(props)=>{
         cod_option:postoption.option.cod_option,
         option:postoption.option.option
       }
-      console.log("se agrego")
       setOptions(oldArray => [...oldArray, option]);
     }
     stsave('')
