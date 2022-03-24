@@ -8,7 +8,7 @@ import {
   deleteMember, deleteSurvey,
   getMembers,
   getProject, getProjects,
-  getProvinces, getSurvey,
+  getProvinces, getResponses, getSurvey,
   getSurveys,
   postMember, postSurvey, putSurvey
 } from "../../../redux/actionCreators";
@@ -18,7 +18,7 @@ import alertify from "alertifyjs";
 
 const Surveys=(props)=>{
   const { id } = useParams()
-  const {project,match, surveys,postsurvey,deletesurvey,survey,putsurvey,userloggedin}= props
+  const {project,match, surveys,postsurvey,deletesurvey,survey,putsurvey,userloggedin,responses}= props
   const [show, setShow] = useState(false);
   const [nameproject, setNameProject] = useState();
   const [btnSubmit, setBtnSubmit] = useState(false);
@@ -28,6 +28,7 @@ const Surveys=(props)=>{
   const [max_answers, setMax_answers] = useState(-1);
   const [detail, setDetail] = useState('');
   const [idsurvey, setIdsurvey] = useState(0);
+  const [surveyName, setSurveyName] = useState('');
   //contextmenu
   const [showContextMenu, setShowContextMenu] = useState('none');
   const [topContextMenu, setTopContextMenu] = useState(0);
@@ -39,7 +40,7 @@ const Surveys=(props)=>{
   const [postSurvey, setPostSurvey] = useState(false);
   const [putSurvey, setPutSurvey] = useState(false);
   const [deleteSurvey, setDeleteSurvey] = useState(false);
-
+  const [downloadAnswers, setDownloadAnswers] = useState(true);
   useEffect(() => {
     Array.isArray(userloggedin.access) ? userloggedin.access.map((e, index) => {
 
@@ -135,12 +136,17 @@ const Surveys=(props)=>{
 
   }
 
-  const handleContextMenu=(e)=>{
+  const handleContextMenu=(e,id,name)=>{
     e.preventDefault()
     setLeftContextMenu(e.pageX)
-    setTopContextMenu(e.pageY)
+    if((window.innerHeight-e.pageY)<150){
+      setTopContextMenu(e.pageY-150)
+    }else{
+      setTopContextMenu(e.pageY)
+    }
     setShowContextMenu('block')
-    setCodSurvey(e.currentTarget.id)
+    setCodSurvey(id)
+    setSurveyName(name)
   }
 
   const formatDateTimeToInput=(date)=>{
@@ -192,6 +198,51 @@ const Surveys=(props)=>{
     }
   }
 
+  const handleDownload=()=>{
+    props.getResponses(codsurvey)
+  }
+
+  useEffect(() => {
+    setShowContextMenu(false)
+    alertify.set("notifier", "position", "bottom-rigth");
+    if(typeof responses.error !='undefined'){
+      if(!responses.error){
+        const data=responses.response
+        if(data.length===0){
+          props.getResponses(null)
+          alertify.success("No se encontrarón respuestas")
+        }else{
+          try{
+            const replacer = (key, value) => value === null ? '' : value
+            const header = Object.keys(data[0])
+            const csv = [
+              header.join(','),
+              ...data.map(row => header.map(fieldName => JSON.stringify(row[fieldName], replacer)).join(','))
+            ].join('\r\n')
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob)
+            alertify.success("El archivo se generó con éxito,<br> su descarga comenzará en unos segundos.")
+            const a = document.createElement("a");
+            document.body.appendChild(a);
+            a.style = "display: none";
+            a.href = url;
+            a.download = surveyName+".csv";
+            a.click();
+            window.URL.revokeObjectURL(url);
+            props.getResponses(null)
+          }catch (e){
+            props.getResponses(null)
+            alertify.error("Ocurrio un error al intentar descargar")
+          }
+        }
+      }else{
+        props.getResponses(null)
+        alertify.error("Ocurrio un error al intentar descargar")
+      }
+    }
+  }, [responses]);
+
+
   return <>
     <div className="card">
       <div className="card-header">
@@ -224,8 +275,9 @@ const Surveys=(props)=>{
       <ul className={style.options}>
         {postSurvey?<li className={style.option}><Link to={`/surveys/${codsurvey}/edit`}>Preguntas</Link></li>:<></>}
         <li className={style.option}><Link to={`/surveys/${codsurvey}/view`}>Vista Previa</Link></li>
-        {putSurvey?<li className={style.option} onClick={handleClickMod}>Modificar</li>:<></>}
-        {deleteSurvey?<li className={style.option} onClick={handleClickDel}>Eliminar</li>:<></>}
+        {putSurvey?<li className={style.option} ><a onClick={handleClickMod}> Modificar</a></li>:<></>}
+        {deleteSurvey?<li className={style.option} ><a onClick={handleClickDel}>Eliminar</a></li>:<></>}
+        {postSurvey?<li className={style.option} ><a onClick={handleDownload}>Descargar Respuestas</a></li>:<></>}
       </ul>
     </div>
     <Modal
@@ -300,11 +352,12 @@ const mapStateToProps = (state) => ({
   putsurvey:state.PutSurveyState,
   deletesurvey:state.DeleteSurveyState,
   survey:state.SurveyState,
-  userloggedin: state.userLoggedInState
+  userloggedin: state.userLoggedInState,
+  responses:state.ResponseState
 })
 
 const mapDispatchProps={
-  postSurvey, deleteSurvey, getSurvey, putSurvey
+  postSurvey, deleteSurvey, getSurvey, putSurvey, getResponses
 }
 
 export default connect(mapStateToProps, mapDispatchProps)(Surveys)

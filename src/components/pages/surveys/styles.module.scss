@@ -37,7 +37,7 @@
 }
 
 .card:hover{
-  background: rgb(144, 179, 208);
+  background: rgb(200, 226, 248);
 }
 
 .title{
@@ -47,7 +47,7 @@
   align-content: center;
   justify-content: space-between;
   background: rgba(0, 0, 0, 0.03);
-  padding:0.5rem 1rem;
+  padding:0.1rem 1rem;
 }
 
 .text{
@@ -61,11 +61,24 @@
 }
 
 .btnbonextmenu{
+  border: 1px solid black;
+  margin: 5px;
   display: flex;
   flex-direction: column;
-  span{
-    height: 6px;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  &:hover{
+    opacity: .5;
   }
+}
+.btns{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .body{

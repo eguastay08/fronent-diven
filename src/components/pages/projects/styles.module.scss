@@ -1,13 +1,15 @@
 .row{
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  margin-right:0.25rem;
+  margin-right: -0.75rem;
   margin-left: -0.75rem;
-  text-align: center;
+  flex-direction: row;
+  width: 100%;
+  padding-right: 20px;
+  padding-left: 20px;
   align-items: center;
+  h6{
+    text-align: center;
+  }
 }
 
 .container{
@@ -23,7 +25,7 @@
 
 .grid{
   display: grid;
-  grid-template-columns: repeat(auto-fill,minmax(336px,1fr));
+  grid-template-columns: repeat(auto-fill,minmax(350px,1fr));
   grid-template-rows: auto 1fr auto;
   padding: 5px;
 }
@@ -39,7 +41,7 @@
 }
 
 .card:hover{
-    background: rgb(144, 179, 208);
+  background: rgb(200, 226, 248);
 }
 
 .title{
@@ -51,35 +53,19 @@
 }
 
 .btnbonextmenu{
-  display: flex;
-  flex-direction: column;
-  .span{
-    cursor: pointer;
-    -webkit-align-items: center;
-    align-items: center;
-    display: -webkit-box;
-    display: -webkit-flex;
+    border: 1px solid black;
+    margin: 5px;
     display: flex;
-    -webkit-box-flex: 1;
-    box-flex: 1;
-    -webkit-flex-grow: 1;
-    flex-grow: 1;
-    -webkit-justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
     justify-content: center;
-    margin: 0;
-  }
-  .mvp{
-    direction: ltr;
-    text-align: left;
-    height: 24px;
-    overflow: hidden;
-    width: 24px;
-    display: inline-block;
-    position: relative;
-    div{
-      transform: rotate(90deg);
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    &:hover{
+      opacity: .5;
     }
-  }
 }
 
 .body{
@@ -97,7 +83,6 @@
 
 .menu {
   background: white;
-  width: 120px;
   box-shadow: 0 4px 5px 3px rgba(0, 0, 0, 0.2);
   display: none;
   position: fixed;
@@ -106,14 +91,15 @@
   left: 0px;
   .options {
     list-style: none;
-    padding: 10px 0;
-
+    margin: 0;
+    padding: 0;
     .option {
       font-weight: 500;
       font-size: 14px;
-      padding: 10px 40px 10px 20px;
       cursor: pointer;
       a{
+        padding: 10px 40px 10px 20px;
+        display: block;
         text-decoration: none;
         color: black;
       }

@@ -149,7 +149,7 @@ const Members=(props)=>{
   return<div className="card">
     <div className="card-header">
       <div className={style.row}>
-        <h6 className="col-11 m-0 font-weight-bold text-primary">Administrar Miembros Proyecto {name}</h6>
+        <h6 style={{textAlign:'center'}} className="col-11 m-0 font-weight-bold text-primary">Administrar Miembros Proyecto {name}</h6>
       </div>
     </div>
     <div className="card-body py-3">

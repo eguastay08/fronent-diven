@@ -1,4 +1,6 @@
 import style from "./styles.module.scss";
+import {FaTrashAlt} from "react-icons/fa";
+import React, {useState} from "react";
 
 const Section=(props)=>{
   const {title,detail,number,tot_section,id,children}=props
@@ -13,11 +15,12 @@ const Section=(props)=>{
         <div className={style.cont}>
             <div className={style.cinput}>
               <textarea name="name" onBlur={props.onFocus} placeholder="Titulo" className={style.title} defaultValue={title}/>
-              <span className={style.span}>
-                <div className={style.mvp}>
-                  <div>...</div>
+              <div>
+                <div onClick={()=>props.deleteSection(id)} className={`${style.btn} ${style.tooltip}`}>
+                  <span className={style.tooltiptext}>Eliminar</span>
+                  <FaTrashAlt/>
                 </div>
-              </span>
+              </div>
             </div>
             <div className={style.cinput}>
               <textarea name="detail" onBlur={props.onFocus} placeholder="Descripción" className={style.detail} defaultValue={detail}/>

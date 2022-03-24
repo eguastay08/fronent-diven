@@ -14,7 +14,7 @@ import {
   GET_ROL,
   GET_ROLES,
   GET_SURVEY,
-  GET_SURVEYS,
+  GET_SURVEYS, GET_SURVEYS_RESPONSES,
   GET_USER,
   GET_USER_LOGGEDIN,
   GET_USERS,
@@ -714,3 +714,20 @@ export const deleteOption=(state={}, action)=>{
   return state
 }
 
+export const getResponses=(state={}, action)=>{
+  if(action.type===GET_SURVEYS_RESPONSES){
+    if(action.error===true){
+      return{
+        error:true,
+        errors:action.errors
+      }
+    }else if(action.clean===true){
+      return {}
+    }
+    return {
+      error:false,
+      response:action.response
+    }
+  }
+  return state
+}

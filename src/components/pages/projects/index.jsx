@@ -200,16 +200,20 @@ const Projects=(props)=>{
   }
 
 
-  const handleClick=()=> {
+  const handleClick=(e)=> {
     setShowContextMenu('none')
   }
 
-  const handleContextMenu=(e)=>{
+  const handleContextMenu=(e,id)=>{
     e.preventDefault()
+    setCodProject(id)
     setLeftContextMenu(e.pageX)
-    setTopContextMenu(e.pageY)
+    if((window.innerHeight-e.pageY)<150){
+      setTopContextMenu(e.pageY-150)
+    }else{
+      setTopContextMenu(e.pageY)
+    }
     setShowContextMenu('block')
-    setCodProject(e.currentTarget.id)
   }
 
   const handleClickMod=()=>{
@@ -255,8 +259,8 @@ const Projects=(props)=>{
       <ul className={style.options}>
         {getSurveysProject?<li className={style.option}><Link to={`/projects/${codproject}/surveys`}>Encuestas</Link></li>:<></>}
         {putProject&&postProjectMembers||putProject&&deleteProjectMembers?<li className={style.option}><Link to={`/projects/${codproject}/members`}>Miembros</Link></li>:<></>}
-        {putProject?<li className={style.option} onClick={handleClickMod}>Modificar</li>:<></>}
-        {deleteProject?<li className={style.option} onClick={handleClickDel}>Eliminar</li>:<></>}
+        {putProject?<li className={style.option}><a onClick={handleClickMod}>Modificar</a></li>:<></>}
+        {deleteProject?<li className={style.option}><a onClick={handleClickDel}>Eliminar</a></li>:<></>}
       </ul>
     </div>:<></>}
     <Modal

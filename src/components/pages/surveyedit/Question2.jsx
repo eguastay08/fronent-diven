@@ -9,6 +9,7 @@ import {deleteOption, deleteQuestion, getUsers, postOption, putOption} from "../
 import store from "../../../redux/store";
 import {ImCheckboxUnchecked, ImRadioUnchecked} from "react-icons/im";
 import Options from "./Options";
+import GroupOptions from "./GroupOptions";
 
 
 
@@ -78,13 +79,12 @@ const Question=(props)=>{
   useEffect(() => {
     if(postoption.option){
       setCod_option(postoption.option.cod_option)
-      props.postOption(null, null)
       let option={
         cod_option:postoption.option.cod_option,
         option:postoption.option.option
       }
-      console.log("se agrego")
       setOptions(oldArray => [...oldArray, option]);
+      props.postOption(null, null)
     }
     stsave('')
     setDisabled(false)
@@ -207,21 +207,17 @@ const Question=(props)=>{
                   </div>:
                   type_question==='checkboxes'?
                     <div className={style.multiplechoice}>
-                      {
-                        options.map((e,i)=>{
-                          return <Options
+                           <GroupOptions
+                             cod_question={cod_question}
+                            options={options}
                             type={type_question}
                             handleBlur={handleBlurOption}
                             handleClickDel={handleClickDel}
                             cod_option={cod_option}
-                            key={i}
-                            {...e}
+                            type_question={type_question}
+                            setOptions={setOptions}
+                            handleClickNewOption={handleClickNewOption}
                           />
-                        })
-                      }
-                      <div className={style.coptions}>
-                        <ImCheckboxUnchecked/> <textarea disabled={disabled} onClick={handleClickNewOption} name="option" placeholder="Añadir Opción" className={style.txtarea}></textarea>
-                      </div>
                     </div>:
                     type_question==='dropdown'?
                       <div className={style.multiplechoice}>

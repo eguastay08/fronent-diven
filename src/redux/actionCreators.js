@@ -14,7 +14,7 @@ import {
   GET_ROL,
   GET_ROLES,
   GET_SURVEY,
-  GET_SURVEYS,
+  GET_SURVEYS, GET_SURVEYS_RESPONSES,
   GET_USER,
   GET_USER_LOGGEDIN,
   GET_USERS,
@@ -40,10 +40,10 @@ const verifyError=(error)=>{
       window.location.href = `/login?path=${uri}`
     }
     if(error.status===500 || error.status===404 || error.status===403){
-      window.location.href = `/404`
+     // window.location.href = `/404`
     }
   }catch(e){
-    window.location.href = `/404`
+    //window.location.href = `/404`
   }
 
 }
@@ -1156,6 +1156,37 @@ export const deleteOption = (dat= null) => (dispatch) => {
         verifyError(err.response)
         return dispatch({
           type: DELETE_OPTION,
+          error: true,
+          errors: err.response.data,
+        });
+      });
+  }
+};
+
+export const getResponses = (id=null) => (dispatch) => {
+  const token = verifyToken();
+  if(id===null){
+    return dispatch({
+      type: GET_SURVEYS_RESPONSES,
+      clean: true,
+    });
+  }else {
+    Axios.get(`${API_URL}/api/v1/surveys/${id}/responses`, {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((resp) => {
+        return dispatch({
+          type: GET_SURVEYS_RESPONSES,
+          response: resp.data.data,
+        });
+      })
+      .catch((err) => {
+        verifyError(err.response)
+        return dispatch({
+          type: GET_SURVEYS_RESPONSES,
           error: true,
           errors: err.response.data,
         });

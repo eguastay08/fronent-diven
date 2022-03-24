@@ -40,8 +40,8 @@ import {
   deleteQuestion as DeleteQuestionState,
   postOption as PostOptionState,
   putOption as PutOptionState,
-  deleteOption as DeleteOptionState
-
+  deleteOption as DeleteOptionState,
+  getResponses as ResponseState
 } from './reducers'
 
 export default createStore(
@@ -84,7 +84,8 @@ export default createStore(
     DeleteQuestionState,
     PostOptionState,
     PutOptionState,
-    DeleteOptionState
+    DeleteOptionState,
+    ResponseState
   }),
   composeWithDevTools(applyMiddleware(thunk))
 )

@@ -1,5 +1,5 @@
 import {
-  deleteQuestion,
+  deleteQuestion, deleteSection,
   getProject,
   getSurvey,
   getSurveys, postQuestion,
@@ -22,7 +22,7 @@ import alertify from "alertifyjs";
 
 const SurveyEdit=(props)=>{
   const { id } = useParams()
-  const{match,survey,postsection,putsection,deletequestion,putquestion,postquestion,scrooltop,userloggedin}=props
+  const{match,survey,postsection,putsection,deletequestion,deletesection,putquestion,postquestion,scrooltop,userloggedin}=props
   const [surveyname, setSurveyName] = useState('');
   const [top, setTop] = useState(0);
   const [sections, setSections] = useState([]);
@@ -48,9 +48,6 @@ const SurveyEdit=(props)=>{
     }):<></>
   }, [userloggedin])
 
-
-
-
   useEffect(() => {
     store.dispatch(getSurvey(id))
   }, [match]);
@@ -62,6 +59,7 @@ const SurveyEdit=(props)=>{
       setSections([])
       if(survey.survey.sections.length===0){
         setSecname(survey.survey.name)
+        setSecdetail(survey.survey.detail)
         setSecorder(0)
       }else{
         survey.survey.sections.map((e)=>setSections(oldArray => [...oldArray, e]))
@@ -134,6 +132,16 @@ const SurveyEdit=(props)=>{
   }, [deletequestion])
 
   useEffect(() => {
+    alertify.set("notifier", "position", "bottom-rigth");
+    if(typeof deletesection.error!='undefined'){
+      setSections([])
+      deletesection.error===false?alertify.success("Se elimino correctamente"):alertify.error("No se puede eliminar")
+      props.deleteSection()
+      store.dispatch(getSurvey(id))
+    }
+  }, [deletesection])
+
+  useEffect(() => {
     if(putquestion.question){
       props.putQuestion(null, null)
     }
@@ -179,6 +187,10 @@ const SurveyEdit=(props)=>{
   const handleClickDelQuestion=()=>{
     if(cod_question!==null)
       props.deleteQuestion(cod_question)
+  }
+
+  const handleClickDelSection=(id)=>{
+    props.deleteSection(id)
   }
 
   const handleFocusQuestion=(e)=>{
@@ -239,6 +251,7 @@ const SurveyEdit=(props)=>{
                       number={i+1}
                       tot_section={sections.length}
                       onClick={handleClickSection}
+                      deleteSection={handleClickDelSection}
                     >
                       {
                         e.questions.map((e,i)=>{
@@ -279,15 +292,17 @@ const mapStateToProps = (state) => ({
   survey:state.SurveyState,
   postsection:state.PostSectionState,
   putsection:state.PutSectionState,
+  deletesection:state.DeleteSectionState,
   //QUESTIONS
   deletequestion:state.DeleteQuestionState,
   putquestion:state.PutQuestionState,
   postquestion:state.PostQuestionState,
   userloggedin: state.userLoggedInState
+
 })
 
 const mapDispatchProps={
-  postSection,putSection,deleteQuestion, putQuestion, postQuestion
+  postSection,putSection,deleteQuestion, putQuestion, postQuestion, deleteSection
 }
 
 export default connect(mapStateToProps, mapDispatchProps)(SurveyEdit)

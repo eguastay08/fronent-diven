@@ -11,7 +11,11 @@ const ContextMenu=({children})=>{
   const handleContextMenu=(e)=>{
     e.preventDefault()
     setXposition(e.pageX)
-    setYposition(e.pageY)
+    if((window.innerHeight-e.pageY)<150){
+      setYContextMenu(e.pageY-150)
+    }else{
+      setYContextMenu(e.pageY)
+    }
     setShow('block')
   }
 

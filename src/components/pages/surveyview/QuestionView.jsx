@@ -22,8 +22,8 @@ const QuestionView=(props)=>{
 
 
   return<div className={style.cques} style={{borderBottom: '1px solid #dadce0'}}>
-        <div className={style.cinpts} >
-          <div className={style.cinput}>
+        <div  className={style.cinpts} >
+          <div style={{width:'100%'}} className={style.cinput}>
             {
               type==='short_answer'?
                 <Input
@@ -73,11 +73,11 @@ const QuestionView=(props)=>{
                           />
                         :type==='multiple_choice'?
                         <div>
-                          <span>{question}</span>
+                          <div style={{fontWeight:'bold', marginBottom:10}}>{question}</div>
                           {
                             options.map((e,i)=>{
                               return  <div key={i}>
-                                <input type="radio" id={e.cod_option} name={e.cod_question} value={e.cod_option}/>
+                                <input style={{marginRight:10}} type="radio" id={e.cod_option} name={e.cod_question} value={e.cod_option}/>
                                 <label htmlFor={e.cod_option}>{e.option}</label>
                               </div>
                             })
@@ -85,11 +85,11 @@ const QuestionView=(props)=>{
                         </div>
                           :type==='checkboxes'?
                             <div>
-                              <span>{question}</span>
+                                <div style={{fontWeight:'bold', marginBottom:10}}>{question}</div>
                               {
                                 options.map((e,i)=>{
                                   return  <div key={i}>
-                                    <input type="checkbox" id={e.cod_option} name={e.cod_question} value={e.cod_option}/>
+                                    <input style={{marginRight:10}}  type="checkbox" id={e.cod_option} name={e.cod_question} value={e.cod_option}/>
                                     <label htmlFor={e.cod_option}>{e.option}</label>
                                   </div>
                                 })
