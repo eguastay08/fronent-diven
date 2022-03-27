@@ -40,25 +40,30 @@ const Protected=({match,setScrooltop, children })=>{
 
   return (
     <>
-      <Header
-        handleToggleSidebar={handleToggleSidebar}
-        handleCollapsedChange={handleCollapsedChange}
-        toggled={toggled}
-      />
       <div className={style.body}>
         <Nav
           collapsed={collapsed}
           toggled={toggled}
           handleToggleSidebar={handleToggleSidebar}
         />
-        <main onScroll={handleScroll}  >
-          {children}
-        </main>
+        <div className={style.container}>
+          <Header
+            handleToggleSidebar={handleToggleSidebar}
+            handleCollapsedChange={handleCollapsedChange}
+            toggled={toggled}
+          />
+          <main onScroll={handleScroll}  >
+            {children}
+          </main>
+        </div>
       </div>
     </>
   )
 }
-
+/*
+          <main onScroll={handleScroll}  >
+            {children}
+          </main>*/
 const mapStateToProps = (state) => ({
   userloggedin: state.userLoggedInState
 })

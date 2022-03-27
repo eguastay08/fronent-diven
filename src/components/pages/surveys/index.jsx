@@ -5,20 +5,23 @@ import Card from "./Card";
 import {connect} from "react-redux";
 import store from "../../../redux/store";
 import {
-  deleteMember, deleteSurvey,
-  getMembers,
-  getProject, getProjects,
-  getProvinces, getResponses, getSurvey,
-  getSurveys,
-  postMember, postSurvey, putSurvey
+   deleteSurvey,
+   duplicateSurvey,
+   getProject,
+   getResponses,
+   getSurvey,
+   getSurveys,
+   postSurvey,
+   putSurvey
 } from "../../../redux/actionCreators";
+
 import {Link, useParams} from "react-router-dom";
 import Input from "../../molecules/input/Input";
 import alertify from "alertifyjs";
 
 const Surveys=(props)=>{
   const { id } = useParams()
-  const {project,match, surveys,postsurvey,deletesurvey,survey,putsurvey,userloggedin,responses}= props
+  const {project,match, surveys,postsurvey,deletesurvey,survey,putsurvey,userloggedin,responses,duplicate}= props
   const [show, setShow] = useState(false);
   const [nameproject, setNameProject] = useState();
   const [btnSubmit, setBtnSubmit] = useState(false);
@@ -40,9 +43,9 @@ const Surveys=(props)=>{
   const [postSurvey, setPostSurvey] = useState(false);
   const [putSurvey, setPutSurvey] = useState(false);
   const [deleteSurvey, setDeleteSurvey] = useState(false);
-  const [downloadAnswers, setDownloadAnswers] = useState(true);
+
   useEffect(() => {
-    Array.isArray(userloggedin.access) ? userloggedin.access.map((e, index) => {
+    Array.isArray(userloggedin.access) ? userloggedin.access.map((e) => {
 
       if(e.endpoint==='/projects/{project}/surveys' && e.method==='POST')
         setPostSurvey(true)
@@ -80,6 +83,15 @@ const Surveys=(props)=>{
 
   useEffect(() => {
     alertify.set("notifier", "position", "bottom-rigth");
+    if(typeof duplicate.error!='undefined'){
+      duplicate.error===false?alertify.success("Se duplico correctamente"):alertify.error("Ocurrio un error, intente nuevamente")
+      store.dispatch(getSurveys(id))
+      props.duplicateSurvey(null)
+    }
+  }, [duplicate])
+
+  useEffect(() => {
+    alertify.set("notifier", "position", "bottom-rigth");
     if(typeof putsurvey.error!='undefined'){
       putsurvey.error===false?alertify.success("Se actualizo correctamente"):alertify.error("Ocurrio un error al intentar actualizar")
       setBtnSubmit(false)
@@ -111,7 +123,7 @@ const Surveys=(props)=>{
   }
 
   const formatDateTime=(datetime)=>{
-    if(datetime!='') {
+    if(datetime!=='') {
       const dt = new Date(datetime)
       return dt.toISOString()
    }
@@ -139,8 +151,8 @@ const Surveys=(props)=>{
   const handleContextMenu=(e,id,name)=>{
     e.preventDefault()
     setLeftContextMenu(e.pageX)
-    if((window.innerHeight-e.pageY)<150){
-      setTopContextMenu(e.pageY-150)
+    if((window.innerHeight-e.pageY)<250){
+      setTopContextMenu(e.pageY-250)
     }else{
       setTopContextMenu(e.pageY)
     }
@@ -200,6 +212,11 @@ const Surveys=(props)=>{
 
   const handleDownload=()=>{
     props.getResponses(codsurvey)
+  }
+
+  const handleDuplicate=()=>{
+    props.duplicateSurvey(codsurvey)
+    setShowContextMenu('none')
   }
 
   useEffect(() => {
@@ -277,6 +294,7 @@ const Surveys=(props)=>{
         <li className={style.option}><Link to={`/surveys/${codsurvey}/view`}>Vista Previa</Link></li>
         {putSurvey?<li className={style.option} ><a onClick={handleClickMod}> Modificar</a></li>:<></>}
         {deleteSurvey?<li className={style.option} ><a onClick={handleClickDel}>Eliminar</a></li>:<></>}
+        {postSurvey?<li className={style.option}><a onClick={handleDuplicate}>Duplicar</a></li>:<></>}
         {postSurvey?<li className={style.option} ><a onClick={handleDownload}>Descargar Respuestas</a></li>:<></>}
       </ul>
     </div>
@@ -353,11 +371,12 @@ const mapStateToProps = (state) => ({
   deletesurvey:state.DeleteSurveyState,
   survey:state.SurveyState,
   userloggedin: state.userLoggedInState,
-  responses:state.ResponseState
+  responses:state.ResponseState,
+  duplicate:state.DuplicateSurveyState
 })
 
 const mapDispatchProps={
-  postSurvey, deleteSurvey, getSurvey, putSurvey, getResponses
+  postSurvey, deleteSurvey, getSurvey, putSurvey, getResponses, duplicateSurvey
 }
 
 export default connect(mapStateToProps, mapDispatchProps)(Surveys)
