@@ -33,7 +33,7 @@ const Options=(props)=> {
   }, [deleteoption]);
 
   const add=(question,option)=>{
-   if(question===cod_question){
+   if(question==cod_question){
      setOptions(oldArray => [...oldArray, option]);
    }
 
@@ -65,7 +65,7 @@ const Options=(props)=> {
 
   const handleClickNewOption = (e) => {
     setDisabled(true)
-    if (e.target.id === 0) {
+    if (e.target.id == 0) {
       const data = {
         "option": "option " + randomCoding()
       }
@@ -76,7 +76,7 @@ const Options=(props)=> {
   const handleClickDel=(e)=>{
     stsave('Guardando...')
     const newoptions = options.filter((op)=> {
-      if(op.cod_option!==e.currentTarget.title)
+      if(op.cod_option!=e.currentTarget.title)
         return op
     });
     setOptions(newoptions);
@@ -84,8 +84,8 @@ const Options=(props)=> {
   }
 
   const handleBlurOption=(e)=>{
-    if(e.target.value!==''){
-      if(e.target.id===''){
+    if(e.target.value!=''){
+      if(e.target.id==''){
         const data={
           "option":e.target.value
         }

@@ -12,7 +12,7 @@ const Option=(props)=>{
 
   return<div  className={style.coptions}>
     {type==='multiple_choice'?<ImRadioUnchecked/>:type==='checkboxes'?<ImCheckboxUnchecked/>:`${props.num}.`}
-    <textarea value={val} onChange={(e)=>setVal(e.target.value)} id={cod_option} onBlur={handleBlur} name="option" placeholder="Añadir Opción" className={style.txtarea} defaultValue={val} />
+    <textarea value={val} onChange={(e)=>setVal(e.target.value)} id={cod_option} onBlur={handleBlur} name="option" placeholder="Añadir Opción" className={style.txtarea} />
     <div  title={cod_option} onClick={props.handleClickDel} className={`${style.btn} ${style.tooltip}`}>
       <FaTrashAlt/>
     </div>
