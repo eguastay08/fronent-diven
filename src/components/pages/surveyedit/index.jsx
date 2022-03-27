@@ -1,28 +1,24 @@
 import {
   deleteQuestion, deleteSection,
-  getProject,
   getSurvey,
-  getSurveys, postQuestion,
+  postQuestion,
   postSection,
-  postSurvey, putQuestion,
+  putQuestion,
   putSection
 } from "../../../redux/actionCreators";
 import {connect} from "react-redux";
-import {Link, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import store from "../../../redux/store";
 import style from "./styles.module.scss";
-import {Button} from "react-bootstrap";
 import Section from "./Section";
 import {FaListOl, FaPlusCircle} from "react-icons/fa";
-import {putSection as PutSectionState} from "../../../redux/reducers";
 import Question from "./Question";
-import logo from "../../../assets/img.png";
 import alertify from "alertifyjs";
 
 const SurveyEdit=(props)=>{
   const { id } = useParams()
-  const{cod_survey,match,survey,postsection,putsection,deletequestion,deletesection,putquestion,postquestion,scrooltop,userloggedin}=props
+  const{match,survey,postsection,putsection,deletequestion,deletesection,putquestion,postquestion,scrooltop,userloggedin}=props
   const [surveyname, setSurveyName] = useState('');
   const [top, setTop] = useState(0);
   const [sections, setSections] = useState([]);
@@ -40,7 +36,7 @@ const SurveyEdit=(props)=>{
   const [postSurvey, setPostSurvey] = useState(false);
 
   useEffect(() => {
-    Array.isArray(userloggedin.access) ? userloggedin.access.map((e, index) => {
+    Array.isArray(userloggedin.access) ? userloggedin.access.map((e) => {
 
       if(e.endpoint==='/projects/{project}/surveys' && e.method==='POST')
         setPostSurvey(true)
@@ -51,6 +47,7 @@ const SurveyEdit=(props)=>{
   useEffect(() => {
     store.dispatch(getSurvey(id))
   }, [match]);
+
 
 
   useEffect(() => {
@@ -160,6 +157,14 @@ const SurveyEdit=(props)=>{
     setTop(scrooltop)
     setIdsection(e.currentTarget.id)
   }
+
+  useEffect(() => {
+    if(scrooltop<25)
+      setTop(0)
+    else
+    setTop(scrooltop+window.innerHeight/2)
+  }, [scrooltop]);
+
 
   const handleFocusSection=(e)=>{
     e.preventDefault()

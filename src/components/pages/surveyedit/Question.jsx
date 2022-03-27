@@ -1,27 +1,18 @@
 import style from "./styles.module.scss";
 import Input from "../../molecules/input/Input";
 import Select from "../../molecules/Select";
-import React, {useEffect, useState} from "react";
-import {FaCheckCircle, FaCircle, FaPlusCircle, FaRegTrashAlt, FaTrashAlt} from "react-icons/fa";
-import alertify from "alertifyjs";
-import {connect} from "react-redux";
-import {deleteOption, deleteQuestion, getUsers, postOption, putOption} from "../../../redux/actionCreators";
-import store from "../../../redux/store";
-import {ImCheckboxUnchecked, ImRadioUnchecked} from "react-icons/im";
+import {useState} from "react";
+import {FaTrashAlt} from "react-icons/fa";
 import Options from "./Options";
 
 
 
+
 const Question=(props)=>{
-  const {putoption,stsave,postoption,deleteoption}=props
+  const {stsave,options,cod_question,cod_survey}=props
   const [type_question, setType_question] = useState(props.type);
-  const [options, setOptions] = useState(props.options);
-  const [question, setQuestion] = useState(props.question);
-  const [required, setRequired] = useState(props.required);
-  const [cod_question, setCod_question] = useState(props.cod_question);
-  const [cod_option, setCod_option] = useState('');
-  const [val, setVal] = useState('');
-  const [disabled, setDisabled] = useState(false);
+  const [question] = useState(props.question);
+  const [required] = useState(props.required);
 
   const type_questions=[
     {
@@ -57,82 +48,6 @@ const Question=(props)=>{
       value: "numerical"
     }
   ]
-
-
-  useEffect(() => {
-    if(putoption.option){
-      props.putOption(null, null)
-    }
-    stsave('')
-  }, [putoption]);
-
-  useEffect(() => {
-    if(deleteoption.option){
-      props.deleteOption(null)
-    }
-    stsave('')
-  }, [deleteoption]);
-
-  useEffect(() => {
-    if(postoption.option){
-      setCod_option(postoption.option.cod_option)
-      props.postOption(null, null)
-      let option={
-        cod_option:postoption.option.cod_option,
-        option:postoption.option.option
-      }
-      setOptions(oldArray => [...oldArray, option]);
-    }
-    stsave('')
-    setDisabled(false)
-  }, [postoption]);
-
-  const randomCoding=()=>{
-    const arr = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
-    var idvalue ='';
-    const n = 1;
-    for(var i=0;i<n;i++){
-      idvalue+=arr[Math.floor(Math.random()*26)];
-    }
-    return idvalue;
-  }
-
-  const handleClickNewOption=(e)=>{
-    setDisabled(true)
-    if(e.target.id==0){
-      const data={
-        "option":"option "+randomCoding()
-      }
-      props.postOption(cod_question,data)
-    }
-  }
-
-  const handleBlurOption=(e)=>{
-    if(e.target.value!==''){
-      if(e.target.id===''){
-        const data={
-          "option":e.target.value
-        }
-        props.postOption(cod_question,data)
-      }else{
-        const data={
-          "option":e.target.value
-        }
-        props.putOption(e.target.id,data)
-      }
-      stsave('Guardando...')
-    }
-  }
-
-  const handleClickDel=(e)=>{
-    stsave('Guardando...')
-    const newoptions = options.filter((op)=> {
-      if(op.cod_option!=e.currentTarget.title)
-        return op
-    });
-    setOptions(newoptions);
-    props.deleteOption(e.currentTarget.title)
-  }
 
 
   return<section onClick={props.onClick} id={cod_question} className={style.question}>
@@ -186,58 +101,33 @@ const Question=(props)=>{
                 </div>:
                 type_question==='multiple_choice'?
                   <div className={style.multiplechoice}>
-                    {
-                      options.map((e,i)=>{
-                       return <Options
-                          type={type_question}
-                          handleBlur={handleBlurOption}
-                          cod_option={cod_option}
-                          handleClickDel={handleClickDel}
-                          key={i}
-                          {...e}
-                        />
-                      })
-                    }
-                    <div className={style.coptions}>
-                      <ImRadioUnchecked/> <textarea disabled={disabled} onClick={handleClickNewOption} onChange={()=>setVal('')} value={val} name="option" placeholder="Añadir Opción" className={style.txtarea}></textarea>
-                    </div>
+                    <Options
+                      options={options}
+                      type={type_question}
+                      stsave={stsave}
+                      cod_question={cod_question}
+                      cod_survey={cod_survey}
+                    />
                   </div>:
                   type_question==='checkboxes'?
                     <div className={style.multiplechoice}>
-                      {
-                        options.map((e,i)=>{
-                          return <Options
-                            type={type_question}
-                            handleBlur={handleBlurOption}
-                            handleClickDel={handleClickDel}
-                            cod_option={cod_option}
-                            key={i}
-                            {...e}
-                          />
-                        })
-                      }
-                      <div className={style.coptions}>
-                        <ImCheckboxUnchecked/> <textarea disabled={disabled} onClick={handleClickNewOption} name="option" placeholder="Añadir Opción" className={style.txtarea}></textarea>
-                      </div>
+                      <Options
+                        options={options}
+                        type={type_question}
+                        stsave={stsave}
+                        cod_question={cod_question}
+                        cod_survey={cod_survey}
+                      />
                     </div>:
                     type_question==='dropdown'?
                       <div className={style.multiplechoice}>
-                        {
-                          options.map((e,i)=>{
-                            return <Options
-                              num={i+1}
-                              type={type_question}
-                              handleBlur={handleBlurOption}
-                              handleClickDel={handleClickDel}
-                              cod_option={cod_option}
-                              key={i}
-                              {...e}
-                            />
-                          })
-                        }
-                        <div className={style.coptions}>
-                           <textarea disabled={disabled} onClick={handleClickNewOption} name="option" placeholder="Añadir Opción" className={style.txtarea}></textarea>
-                        </div>
+                        <Options
+                          options={options}
+                          type={type_question}
+                          stsave={stsave}
+                          cod_question={cod_question}
+                          cod_survey={cod_survey}
+                        />
                       </div>:
                       type_question==='date'?
                         <div className={style.short}>
@@ -299,14 +189,4 @@ const Question=(props)=>{
   </section>
 }
 
-const mapStateToProps = (state) => ({
-  putoption:state.PutOptionState,
-  postoption:state.PostOptionState,
-  deleteoption:state.DeleteOptionState
-})
-
-const mapDispatchProps={
-  putOption,postOption, deleteOption
-}
-
-export default connect(mapStateToProps, mapDispatchProps)(Question)
+export default Question
