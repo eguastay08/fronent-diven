@@ -3,7 +3,7 @@ import {
   DELETE_ACCESS,
   DELETE_MEMBER, DELETE_OPTION, DELETE_PROJECT, DELETE_QUESTION,
   DELETE_ROLE, DELETE_SECTION, DELETE_SURVEY,
-  DELETE_USER,
+  DELETE_USER, DUPLICATE_SURVEY,
   GET_ACCESS,
   GET_DPA,
   GET_MEMBERS_PROJECT,
@@ -1189,6 +1189,36 @@ export const getResponses = (id=null) => (dispatch) => {
           type: GET_SURVEYS_RESPONSES,
           error: true,
           errors: err.response.data,
+        });
+      });
+  }
+};
+
+export const duplicateSurvey = (id=null) => (dispatch) => {
+  const token = verifyToken();
+  if(id===null){
+    return dispatch({
+      type: DUPLICATE_SURVEY,
+      clean: true,
+    });
+  }else {
+    Axios.get(`${API_URL}/api/v1/surveys/${id}/duplicate`, {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((resp) => {
+        return dispatch({
+          type: DUPLICATE_SURVEY,
+          survey: resp.data.data,
+        });
+      })
+      .catch((err) => {
+        return dispatch({
+          type: DUPLICATE_SURVEY,
+          error: true,
+          errors: err.response.data.data,
         });
       });
   }

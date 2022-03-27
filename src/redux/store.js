@@ -41,7 +41,8 @@ import {
   postOption as PostOptionState,
   putOption as PutOptionState,
   deleteOption as DeleteOptionState,
-  getResponses as ResponseState
+  getResponses as ResponseState,
+  duplicateSurvey as DuplicateSurveyState
 } from './reducers'
 
 export default createStore(
@@ -85,7 +86,8 @@ export default createStore(
     PostOptionState,
     PutOptionState,
     DeleteOptionState,
-    ResponseState
+    ResponseState,
+    DuplicateSurveyState
   }),
   composeWithDevTools(applyMiddleware(thunk))
 )

@@ -3,7 +3,7 @@ import {
   DELETE_MEMBER, DELETE_OPTION, DELETE_PROJECT, DELETE_QUESTION,
   DELETE_ROLE,
   DELETE_SECTION, DELETE_SURVEY,
-  DELETE_USER,
+  DELETE_USER, DUPLICATE_SURVEY,
   GET_ACCESS,
   GET_DPA,
   GET_MEMBERS_PROJECT,
@@ -32,8 +32,7 @@ import {
   PUT_SECTION, PUT_SURVEY,
   PUT_USER
 } from "./actions";
-import Axios from "axios";
-import {verifyToken} from "./actionCreators";
+
 
 export const userLoggedIn=(state={}, action)=>{
   if(action.type===GET_USER_LOGGEDIN){
@@ -727,6 +726,24 @@ export const getResponses=(state={}, action)=>{
     return {
       error:false,
       response:action.response
+    }
+  }
+  return state
+}
+
+export const duplicateSurvey=(state={}, action)=>{
+  if(action.type===DUPLICATE_SURVEY){
+    if(action.error===true){
+      return{
+        error:true,
+        errors:action.errors
+      }
+    }else if(action.clean===true){
+      return {}
+    }
+    return {
+      error:false,
+      survey:action.survey
     }
   }
   return state
