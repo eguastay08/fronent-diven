@@ -6,11 +6,14 @@ import Axios from "axios";
 import {useLocation} from "react-router";
 import {useState} from "react";
 import {Link} from "react-router-dom";
+import Password from "../../molecules/input/Password";
 
 export default function Login(){
 
   const [error, setError] = useState(false);
   const [bntLogin, setBntLogin] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -24,9 +27,10 @@ export default function Login(){
     e.preventDefault()
     const form = e.target
     const API_URL=process.env.REACT_APP_API_URL
+
     const data = {
-      "email":form.email.value,
-      "password":form.password.value
+      "email":email,
+      "password":password
     }
     Axios.post(`${API_URL}/api/v1/auth/login`, data)
       .then(r => {
@@ -59,12 +63,15 @@ export default function Login(){
                     type="email"
                     label="Correo electrónico"
                     autoFocus
+                    defaultValue={email}
+                    onChange={(e)=>setEmail(e.target.value)}
                   />
-                <Input
+                <Password
                   id="password"
-                  type="password"
                   label="Contraseña"
                   autoComplete="off"
+                  defaultValue={password}
+                  onChange={(e)=>setPassword(e.target.value)}
                 />
                 {error?<div className={style.error}>Usuario o Contraseña Incorrectos</div>:<></>}
 

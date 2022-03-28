@@ -8,6 +8,7 @@ import {connect} from "react-redux";
 import store from "../../../redux/store";
 import {Link} from "react-router-dom";
 import alertify from "alertifyjs";
+import Password from "../../molecules/input/Password";
 
 const Users=(props)=>{
   const {match,roles,users,user,deleteuser,userloggedin}=props
@@ -17,6 +18,13 @@ const Users=(props)=>{
   const [show, setShow] = useState(false)
   const [btnSubmit, setBtnSubmit] = useState(false)
   const [sroles, setSroles] = useState([]);
+
+  const [name, setName] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+
 
   useEffect(() => {
     //store.dispatch(getRoles())
@@ -80,12 +88,12 @@ const Users=(props)=>{
     setBtnSubmit(true)
     const form = e.target
     const data = {
-      name:form.name.value,
-      lastname:form.lastname.value,
-      email:form.email.value,
+      name:name,
+      lastname:lastname,
+      email:email,
       gender:form.gender.value,
       cod_rol:form.cod_rol.value,
-      password:form.password.value
+      password:password
     }
     props.postUser(data)
   }
@@ -93,7 +101,7 @@ const Users=(props)=>{
   const handleDelete=(data)=>{
     alertify.confirm('Eliminar Usuario', `¿Seguro de eliminar el usuario: ${data.name}?`,()=> {props.deleteUser(data.id) }
       , function () {
-      });
+      }).set('labels', {ok:'Aceptar', cancel:'Cancelar'});
   }
   const gender_options= [
         {
@@ -184,12 +192,16 @@ const Users=(props)=>{
               type="text"
               label="Nombre"
               required
+              onChange={(e)=>setName(e.target.value)}
+              defaultValue={name}
             />
             <Input
               id="lastname"
               name="lastname"
               type="text"
               label="Apellido"
+              onChange={(e)=>setLastname(e.target.value)}
+              defaultValue={lastname}
             />
             <Input
               id="email"
@@ -197,13 +209,17 @@ const Users=(props)=>{
               type="email"
               label="Correo Electronico"
               required
+              onChange={(e)=>setEmail(e.target.value)}
+              defaultValue={email}
             />
-            <Input
+            <Password
               id="password"
               name="password"
               type="password"
               label="Contraseña"
               required
+              onChange={(e)=>setPassword(e.target.value)}
+              defaultValue={password}
             />
             <Select
               label="Género"

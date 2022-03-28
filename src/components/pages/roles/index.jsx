@@ -15,6 +15,8 @@ const Roles =(props)=> {
   const [postRol, setPostRol] = useState(false);
   const [putRol, setPutRol] = useState(false);
   const [deleteRol, setDeleteRol] = useState(false);
+  const [name, setName] = useState('');
+  const [detail, setDetail] = useState('');
 
   useEffect(() => {
     store.dispatch(getRoles())
@@ -62,8 +64,8 @@ const Roles =(props)=> {
     setBtnSubmit(true)
     const form = e.target
     const data = {
-      "name": form.name.value,
-      "detail": form.detail.value
+      "name": name,
+      "detail": detail
     }
     props.postRole(data)
   }
@@ -71,7 +73,7 @@ const Roles =(props)=> {
   const handleDelete = (data) => {
       alertify.confirm('Eliminar Rol', `¿Seguro de eliminar el rol: ${data.name}?`,()=> {props.deleteRole(data.cod_rol) }
       , function () {
-      });
+      }).set('labels', {ok:'Aceptar', cancel:'Cancelar'});
   }
 
 
@@ -135,14 +137,17 @@ const Roles =(props)=> {
             name="name"
             type="text"
             label="Nombre"
-
+            defaultValue={name}
             autoFocus
+            onChange={(e)=>setName(e.target.value)}
           />
           <Input
             id="detail"
             name="detail"
             type="text"
             label="Detalle"
+            defaultValue={detail}
+            onChange={(e)=>setDetail(e.target.value)}
           />
       </Modal.Body>
       <Modal.Footer>

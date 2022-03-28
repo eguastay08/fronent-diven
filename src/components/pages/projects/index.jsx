@@ -81,8 +81,6 @@ const Projects=(props)=>{
     }):<></>
   }, [userloggedin])
 
-
-
   useEffect(() => {
     setDataProvinces([])
     Array.isArray(provinces.provinces)?provinces.provinces.map((e, i)=>{
@@ -179,10 +177,11 @@ const Projects=(props)=>{
         "resolution":resolution,
         "cod_dpa":cod_dpa
       }
-      if(e.target.submit.value==='post')
+
+      if(e.target.send.value=='post')
         props.postProject(data)
 
-      if(e.target.submit.value==='put')
+      if(e.target.send.value=='put')
         props.putProject(codproject,data)
   }
 
@@ -231,7 +230,7 @@ const Projects=(props)=>{
     setShowContextMenu('none')
     alertify.confirm('Eliminar Proyecto', `¿Seguro de eliminar?`,()=> {props.deleteProject(codproject) }
       , function () {
-      });
+      }).set('labels', {ok:'Aceptar', cancel:'Cancelar'});
   }
   return  <>
     <div className="card">
@@ -337,7 +336,7 @@ const Projects=(props)=>{
           <Button variant="secondary" onClick={handleClose}>
             Cerrar
           </Button>
-          <Button name="submit" value={btnSubmitValue} type="submit" variant="primary">{btnSubmit ? 'Guardando...' : 'Guardar'}</Button>
+          <Button name="send" value={btnSubmitValue} type="submit" variant="primary">{btnSubmit ? 'Guardando...' : 'Guardar'}</Button>
         </Modal.Footer>
       </form>
     </Modal>

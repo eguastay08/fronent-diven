@@ -176,7 +176,7 @@ const Members=(props)=>{
                       <Input
                         id="searchmembers"
                         onChange={(e)=>setSearchmembers(e.target.value)}
-                        value={searchmembers}
+                        defaultValue={searchmembers}
                         type="text"
                         label="Buscar Miembros"
                       />
@@ -204,7 +204,7 @@ const Members=(props)=>{
                     <Input
                       onChange={(e)=>setSearchusers(e.target.value)}
                       id="searchusers"
-                      value={searchusers}
+                      defaultValue={searchusers}
                       type="text"
                       label="Buscar Usuarios"
                     />

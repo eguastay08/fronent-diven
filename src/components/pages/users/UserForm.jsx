@@ -7,6 +7,7 @@ import Input from "../../molecules/input/Input";
 import Select from "../../molecules/Select";
 import style from "./styles.module.scss"
 import alertify from "alertifyjs";
+import Password from "../../molecules/input/Password";
 
 
 
@@ -15,6 +16,11 @@ const UserForm=(props)=>{
   let { id } = useParams();
   const [sroles, setSroles] = useState([]);
   const [btnSubmit, setBtnSubmit] = useState(false)
+
+  const [name, setName] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   useEffect(() => {
     store.dispatch(getRoles())
@@ -66,13 +72,20 @@ const UserForm=(props)=>{
     },
     {
       label: "Femenino",
-      value: "famele",
+      value: "femele",
     },
     {
       label: "Otro",
       value: "other",
     },
   ]
+
+  useEffect(() => {
+    setName(user?.user?.name)
+    setLastname(user?.user?.lastname)
+    setEmail(user?.user?.email)
+  }, [user]);
+
 
   const data=user.user;
 
@@ -94,7 +107,8 @@ const UserForm=(props)=>{
               type="text"
               label="Nombre"
               required
-              defaultValue={data.name}
+              onChange={(e)=>setName(e.target.value)}
+              defaultValue={name}
             />
             <Input
               sty="col-md-12 col-lg-6"
@@ -102,7 +116,9 @@ const UserForm=(props)=>{
               name="lastname"
               type="text"
               label="Apellido"
-              defaultValue={data.lastname}
+              onChange={(e)=>setLastname(e.target.value)}
+              defaultValue={lastname}
+
             />
             <Input
               sty="col-md-12 col-lg-6"
@@ -111,14 +127,17 @@ const UserForm=(props)=>{
               type="email"
               label="Correo Electronico"
               required
-              defaultValue={data.email}
+              onChange={(e)=>setEmail(e.target.value)}
+              defaultValue={email}
             />
-            <Input
+            <Password
               sty="col-md-12 col-lg-6"
               id="password"
               name="password"
               type="password"
               label="Contraseña"
+              onChange={(e)=>setPassword(e.target.value)}
+              defaultValue={password}
             />
             <Select
               sty="col-md-12 col-lg-6"

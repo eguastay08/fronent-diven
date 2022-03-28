@@ -187,7 +187,7 @@ const Surveys=(props)=>{
     setShowContextMenu('none')
     alertify.confirm('Eliminar Encuesta', `¿Seguro de eliminar?`,()=> {props.deleteSurvey(codsurvey) }
       , function () {
-      });
+      }).set('labels', {ok:'Aceptar', cancel:'Cancelar'});
   }
 
   const handleClickMod=()=>{
@@ -206,7 +206,7 @@ const Surveys=(props)=>{
         }
         , () =>{
           e.target.checked=false
-        });
+        }).set('labels', {ok:'Aceptar', cancel:'Cancelar'});
     }
   }
 

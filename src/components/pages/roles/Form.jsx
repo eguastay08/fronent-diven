@@ -10,6 +10,8 @@ import {deleteAccess, getAccess, getRol, getRoles, postAccess, putRole} from "..
 const Form =(props)=>{
   const { rol ,access,putrole,postaccess, deleteaccess}=props
   const [bntSubmit, setBntSubmit] = useState(false);
+  const [name, setName] = useState('');
+  const [detail, setDetail] = useState('');
   let { id } = useParams();
 
   useEffect(() => {
@@ -65,30 +67,37 @@ const Form =(props)=>{
     }
   }
 
+  useEffect(() => {
+    setName(rol?.rol?.name)
+    setDetail(rol?.rol?.detail)
+  }, [rol]);
+
  const data=rol.rol;
 
- return data!==undefined?<div className={style.form}>
+ return data!==undefined?<div>
   <div className="card-header py-3 ">
     <div className={style.row}>
       <h6 className="col-11 m-0 font-weight-bold text-primary">Editar Rol {data.name}</h6>
     </div>
   </div>
     <div className={style.card} >
-      <form  onSubmit ={handleSubmit.bind()}>
+      <form className={style.form}  onSubmit ={handleSubmit.bind()}>
         <Input
           id="name"
           name="name"
           type="text"
           label="Nombre"
-          defaultValue={data.name}
+          defaultValue={name}
           autoFocus
+          onChange={(e)=>setName(e.target.value)}
         />
         <Input
           id="detail"
           name="detail"
           type="text"
           label="Detalle"
-          defaultValue={data.detail}
+          defaultValue={detail}
+          onChange={(e)=>setDetail(e.target.value)}
         />
         <button id="btn-input" type="submit" className="btn-diven btn-input btn btn-primary" disabled={!bntSubmit?false:true}>
           <img id="loading" className="d-none" title="loading" alt="loading" src=""/>
