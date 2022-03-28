@@ -10,6 +10,12 @@ const ContextMenu=({children})=>{
   const [show, setShow] = useState(true);
   const handleContextMenu=(e)=>{
     e.preventDefault()
+
+    if(window.innerWidth-e.pageX<100){
+      setXposition(e.pageX-100)
+    }else{
+      setXposition(e.pageX)
+    }
     setXposition(e.pageX)
     if((window.innerHeight-e.pageY)<150){
       setYContextMenu(e.pageY-150)
