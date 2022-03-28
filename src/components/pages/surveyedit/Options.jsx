@@ -114,7 +114,7 @@ const Options=(props)=> {
     />
   })}
     <div className={style.coptions}>
-      <textarea disabled={disabled} onClick={handleClickNewOption} name="option" placeholder="Añadir Opción" className={style.txtarea}/>
+      <textarea disabled={disabled} onFocus={handleClickNewOption} placeholder="Añadir Opción" className={style.txtarea}/>
     </div>
   </>
 }
