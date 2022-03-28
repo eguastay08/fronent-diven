@@ -73,7 +73,7 @@ const Surveys=(props)=>{
   useEffect(() => {
     alertify.set("notifier", "position", "bottom-rigth");
     if(typeof postsurvey.error!='undefined'){
-      postsurvey.error===false?alertify.success("Se agrego correctamente"):alertify.error("Ocurrio un error al intentar agregar")
+      postsurvey.error===false?alertify.success("Se agregó correctamente"):alertify.error("Ocurrió un error al intentar agregar")
       setBtnSubmit(false)
       setShow(false)
       store.dispatch(getSurveys(id))
@@ -84,7 +84,7 @@ const Surveys=(props)=>{
   useEffect(() => {
     alertify.set("notifier", "position", "bottom-rigth");
     if(typeof duplicate.error!='undefined'){
-      duplicate.error===false?alertify.success("Se duplico correctamente"):alertify.error("Ocurrio un error, intente nuevamente")
+      duplicate.error===false?alertify.success("Se duplicó correctamente"):alertify.error("Ocurrió un error, intente nuevamente")
       store.dispatch(getSurveys(id))
       props.duplicateSurvey(null)
     }
@@ -93,7 +93,7 @@ const Surveys=(props)=>{
   useEffect(() => {
     alertify.set("notifier", "position", "bottom-rigth");
     if(typeof putsurvey.error!='undefined'){
-      putsurvey.error===false?alertify.success("Se actualizo correctamente"):alertify.error("Ocurrio un error al intentar actualizar")
+      putsurvey.error===false?alertify.success("Se actualizó correctamente"):alertify.error("Ocurrió un error al intentar actualizar")
       setBtnSubmit(false)
       setShow(false)
       store.dispatch(getSurveys(id))
@@ -105,7 +105,7 @@ const Surveys=(props)=>{
   useEffect(() => {
     alertify.set("notifier", "position", "bottom-rigth");
     if(typeof deletesurvey.error!='undefined'){
-      deletesurvey.error===false?alertify.success("Se elimino correctamente"):alertify.error("Ocurrio un error al intentar eliminar")
+      deletesurvey.error===false?alertify.success("Se eliminó correctamente"):alertify.error("Ocurrió un error al intentar eliminar")
       store.dispatch(getSurveys(id))
       props.deleteSurvey(null)
     }
@@ -249,12 +249,12 @@ const Surveys=(props)=>{
             props.getResponses(null)
           }catch (e){
             props.getResponses(null)
-            alertify.error("Ocurrio un error al intentar descargar")
+            alertify.error("Ocurrió un error al intentar descargar")
           }
         }
       }else{
         props.getResponses(null)
-        alertify.error("Ocurrio un error al intentar descargar")
+        alertify.error("Ocurrió un error al intentar descargar")
       }
     }
   }, [responses]);
@@ -355,7 +355,7 @@ const Surveys=(props)=>{
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            Cerrar
           </Button>
           <Button type="submit" variant="primary">{btnSubmit ? 'Guardando...' : 'Guardar'}</Button>
         </Modal.Footer>

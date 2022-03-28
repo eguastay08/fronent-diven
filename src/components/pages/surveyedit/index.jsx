@@ -22,7 +22,7 @@ const SurveyEdit=(props)=>{
   const [surveyname, setSurveyName] = useState('');
   const [top, setTop] = useState(0);
   const [sections, setSections] = useState([]);
-  const [saving, setSaving] = useState('');
+  const [saving, setSaving] = useState(false);
   const [idsection, setIdsection] = useState(null);
 
   const [secname, setSecname] = useState('');
@@ -31,6 +31,7 @@ const SurveyEdit=(props)=>{
   const [save, setSave] = useState(false);
   //QUESTIONS
   const [cod_question, setCod_question] = useState(null);
+  const [order, setOrder] = useState(1);
 
   //ACCESS
   const [postSurvey, setPostSurvey] = useState(false);
@@ -87,7 +88,7 @@ const SurveyEdit=(props)=>{
       } else if (idsection !== null) {
         props.putSection(idsection, data)
       }
-      setSaving('Guardando...')
+      setSaving(true)
     }
   }, [save]);
 
@@ -99,11 +100,11 @@ const SurveyEdit=(props)=>{
       setSecname('')
       setSecdetail('')
       setSecorder(0)
-      setSaving('')
+      setSaving(false)
       props.postSection(null, null)
       store.dispatch(getSurvey(id))
     }
-    setSaving('')
+    setSaving(false)
   }, [postsection]);
 
   useEffect(() => {
@@ -112,17 +113,17 @@ const SurveyEdit=(props)=>{
       setSecname('')
       setSecdetail('')
       setSecorder(0)
-      setSaving('')
+      setSaving(false)
       props.putSection(null, null)
       store.dispatch(getSurvey(id))
     }
-    setSaving('')
+    setSaving(false)
   }, [putsection]);
 
   useEffect(() => {
     alertify.set("notifier", "position", "bottom-rigth");
     if(typeof deletequestion.error!='undefined'){
-      deletequestion.error===false?alertify.success("Se elimino correctamente"):alertify.error("No se puede eliminar")
+      deletequestion.error===false?alertify.success("Se eliminó correctamente"):alertify.error("No se puede eliminar")
       props.deleteQuestion()
       store.dispatch(getSurvey(id))
     }
@@ -132,7 +133,7 @@ const SurveyEdit=(props)=>{
     alertify.set("notifier", "position", "bottom-rigth");
     if(typeof deletesection.error!='undefined'){
       setSections([])
-      deletesection.error===false?alertify.success("Se elimino correctamente"):alertify.error("No se puede eliminar")
+      deletesection.error===false?alertify.success("Se eliminó correctamente"):alertify.error("No se puede eliminar")
       props.deleteSection()
       store.dispatch(getSurvey(id))
     }
@@ -142,7 +143,7 @@ const SurveyEdit=(props)=>{
     if(putquestion.question){
       props.putQuestion(null, null)
     }
-    setSaving('')
+    setSaving(false)
   }, [putquestion]);
 
   useEffect(() => {
@@ -150,7 +151,7 @@ const SurveyEdit=(props)=>{
       props.postQuestion(null, null)
       store.dispatch(getSurvey(id))
     }
-    setSaving('')
+    setSaving(false)
   }, [postquestion]);
 
   const handleClickSection=(e)=>{
@@ -181,12 +182,13 @@ const SurveyEdit=(props)=>{
       "name":'Sin Título',
       "order":1
     }
-    setSaving('Guardando...')
+    setSaving(true)
     props.postSection(id,data)
   }
 
-  const handleClickQuestion=(e)=>{
-    setCod_question(e.currentTarget.id)
+  const handleClickQuestion=(question,order)=>{
+    setCod_question(question)
+    setOrder(order)
   }
 
   const handleClickDelQuestion=()=>{
@@ -216,29 +218,50 @@ const SurveyEdit=(props)=>{
             "type":e.target.value,
           }
         }
-        setSaving('Guardando...')
+        setSaving(true)
         props.putQuestion(cod_question,data)
       }
     }
 
-    const handleClickAddQuestion=()=>{
+  const handleClickAddQuestion=()=>{
+      let next=1
+      let new_order=1;
       if(idsection!==null) {
+        sections.map(e=>{
+          if(e.cod_section==idsection){
+            e.questions.map((q,i)=>{
+              if(q.order==order){
+                if(e.questions[i+1]){
+                  next=e.questions[i+1].order
+                  new_order=((order+next)/2)
+                }else{
+                  next=q.order+1
+                  new_order=((order+next))
+                }
+                return
+              }
+            })
+            return
+          }
+        })
+
         const data = {
-          "order": 0,
+          "order": new_order,
           "type": "short_answer",
         }
-        setSaving('Guardando...')
+        setSaving(true)
         props.postQuestion(idsection, data)
       }
     }
 
+
   return <>
     {postSurvey?
     <div className="card">
-      <div className="card-header">
+      <div className={`card-header ${style.header}`}>
         <div className={style.row}>
           <h6 className="col-11 m-0 font-weight-bold text-primary">{surveyname}</h6>
-          <span>{saving}</span>
+          <span style={{position: 'absolute',fontSize: '10px',color: '#5f6368',fontStyle: 'italic'}}>{saving?'Guardando...':'Todos los cambios guardados'}</span>
         </div>
       </div>
       <div className="card-body py-3" style={{ background: '#F3F5F8'}}>

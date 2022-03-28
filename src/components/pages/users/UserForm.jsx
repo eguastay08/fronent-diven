@@ -37,7 +37,7 @@ const UserForm=(props)=>{
   useEffect(() => {
     alertify.set("notifier", "position", "bottom-rigth");
     if(typeof putuser.error!='undefined'){
-      putuser.error===false?alertify.success("Se actualizo correctamente"):alertify.error("Ocurrio un error al intentar Actualizar")
+      putuser.error===false?alertify.success("Se actualizó correctamente"):alertify.error("Ocurrió un error al intentar Actualizar")
       setBtnSubmit(false)
       props.putUser()
     }

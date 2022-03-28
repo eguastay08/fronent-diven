@@ -51,7 +51,7 @@ const Users=(props)=>{
   useEffect(() => {
     alertify.set("notifier", "position", "bottom-rigth");
     if(typeof user.error!='undefined'){
-      user.error===false?alertify.success("Se creo correctamente"):alertify.error("Ocurrio un error al intentar Guardar")
+      user.error===false?alertify.success("Se creó correctamente"):alertify.error("Ocurrió un error al intentar Guardar")
       setBtnSubmit(false)
       setShow(false)
       store.dispatch(getUsers())
@@ -62,7 +62,7 @@ const Users=(props)=>{
   useEffect(() => {
     alertify.set("notifier", "position", "bottom-rigth");
     if(typeof deleteuser.error!='undefined'){
-      deleteuser.error===false?alertify.success("Se elimino correctamente"):alertify.error("No se puede eliminar")
+      deleteuser.error===false?alertify.success("Se eliminó correctamente"):alertify.error("No se puede eliminar")
       store.dispatch(getUsers())
       props.deleteUser()
     }
@@ -102,7 +102,7 @@ const Users=(props)=>{
         },
         {
           label: "Femenino",
-          value: "famele",
+          value: "female",
         },
         {
           label: "Otro",
@@ -221,7 +221,7 @@ const Users=(props)=>{
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
-              Close
+              Cerrar
             </Button>
             <Button type="submit" variant="primary">{btnSubmit ? 'Guardando...' : 'Guardar'}</Button>
           </Modal.Footer>

@@ -131,7 +131,7 @@ const Projects=(props)=>{
   useEffect(() => {
     alertify.set("notifier", "position", "bottom-rigth");
     if(typeof postproject.error!='undefined'){
-      postproject.error===false?alertify.success("Se creo correctamente"):alertify.error("Ocurrio un error al intentar Guardar")
+      postproject.error===false?alertify.success("Se creó correctamente"):alertify.error("Ocurrió un error al intentar Guardar")
       setBtnSubmit(false)
       setShow(false)
       store.dispatch(getProjects())
@@ -142,7 +142,7 @@ const Projects=(props)=>{
   useEffect(() => {
     alertify.set("notifier", "position", "bottom-rigth");
     if(typeof deleteproject.error!='undefined'){
-      deleteproject.error===false?alertify.success("Se elimino correctamente"):alertify.error("Ocurrio un error al intentar eliminar")
+      deleteproject.error===false?alertify.success("Se eliminó correctamente"):alertify.error("Ocurrió un error al intentar eliminar")
       store.dispatch(getProjects())
       props.deleteProject(null)
     }
@@ -151,7 +151,7 @@ const Projects=(props)=>{
   useEffect(() => {
     alertify.set("notifier", "position", "bottom-rigth");
     if(typeof putproject.error!='undefined'){
-      putproject.error===false?alertify.success("Se actualizo correctamente"):alertify.error("Ocurrio un error al intentar actualizar")
+      putproject.error===false?alertify.success("Se actualizó correctamente"):alertify.error("Ocurrió un error al intentar actualizar")
       setBtnSubmit(false)
       store.dispatch(getProjects())
       props.putProject(null,null)
@@ -207,7 +207,12 @@ const Projects=(props)=>{
   const handleContextMenu=(e,id)=>{
     e.preventDefault()
     setCodProject(id)
-    setLeftContextMenu(e.pageX)
+    if(window.innerWidth-e.pageX<100){
+      setLeftContextMenu(e.pageX-100)
+    }else{
+      setLeftContextMenu(e.pageX)
+    }
+
     if((window.innerHeight-e.pageY)<150){
       setTopContextMenu(e.pageY-150)
     }else{
@@ -330,7 +335,7 @@ const Projects=(props)=>{
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            Cerrar
           </Button>
           <Button name="submit" value={btnSubmitValue} type="submit" variant="primary">{btnSubmit ? 'Guardando...' : 'Guardar'}</Button>
         </Modal.Footer>

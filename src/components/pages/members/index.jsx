@@ -100,7 +100,7 @@ const Members=(props)=>{
   useEffect(() => {
     alertify.set("notifier", "position", "bottom-rigth");
     if(typeof deletemember.error!='undefined'){
-      deletemember.error===false?alertify.success("Se elimino correctamente"):alertify.error("Ocurrio un error al intentar remover")
+      deletemember.error===false?alertify.success("Se eliminó correctamente"):alertify.error("Ocurrió un error al intentar remover")
       setBtnSubmitDel(false)
       store.dispatch(getMembers(id))
       props.deleteMember(null,null)
@@ -110,7 +110,7 @@ const Members=(props)=>{
   useEffect(() => {
     alertify.set("notifier", "position", "bottom-rigth");
     if(typeof postmember.error!='undefined'){
-      postmember.error===false?alertify.success("Se agrego correctamente"):alertify.error("Ocurrio un error al intentar agregar")
+      postmember.error===false?alertify.success("Se agregó correctamente"):alertify.error("Ocurrió un error al intentar agregar")
       setBtnSubmitAdd(false)
       store.dispatch(getMembers(id))
       props.postMember(null,null)

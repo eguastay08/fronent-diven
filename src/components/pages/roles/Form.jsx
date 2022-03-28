@@ -20,7 +20,7 @@ const Form =(props)=>{
   useEffect(() => {
     alertify.set("notifier", "position", "bottom-rigth");
     if(typeof postaccess.error!='undefined'){
-      postaccess.error===false?alertify.success("Se creo correctamente"):alertify.error("Ocurrio un error al intentar Guardar")
+      postaccess.error===false?alertify.success("Se creó correctamente"):alertify.error("Ocurrió un error al intentar Guardar")
       props.postAccess()
     }
   }, [postaccess])
@@ -28,7 +28,7 @@ const Form =(props)=>{
   useEffect(() => {
     alertify.set("notifier", "position", "bottom-rigth");
     if(typeof deleteaccess.error!='undefined'){
-      deleteaccess.error===false?alertify.success("Se elimino correctamente"):alertify.error("Ocurrio un error al intentar Guardar")
+      deleteaccess.error===false?alertify.success("Se eliminó correctamente"):alertify.error("Ocurrió un error al intentar Guardar")
       props.deleteAccess()
     }
   }, [deleteaccess])
@@ -36,7 +36,7 @@ const Form =(props)=>{
   useEffect(() => {
     alertify.set("notifier", "position", "bottom-rigth");
     if(typeof putrole.error!='undefined'){
-      putrole.error===false?alertify.success("Se elimino correctamente"):alertify.error("Ocurrio un error al intentar Guardar")
+      putrole.error===false?alertify.success("Se eliminó correctamente"):alertify.error("Ocurrió un error al intentar Guardar")
       setBntSubmit(false)
       props.putRole(id,null)
     }
@@ -96,13 +96,12 @@ const Form =(props)=>{
         </button>
         <Link to={'/roles'} className="btn btn-secondary col-md-8 col-lg-3 ms-3">Cancelar</Link>
       </form>
+      <br/>
       <div className="card">
         <div className="card-header">Permisos</div>
-        <ul className="list-group list-group-flush">
-          <li className="list-group-item">
             <div className="row">
               <div className="col">
-                <span className="float-right">
+                <div className={style.flex}>
                   {
                     Array.isArray(access.access)?access.access.map((e, key)=>{
                       return <div key={key} className="form-check form-switch">
@@ -111,11 +110,9 @@ const Form =(props)=>{
                       </div>
                     }):<></>
                   }
-            </span>
+            </div>
               </div>
             </div>
-          </li>
-        </ul>
       </div>
     </div>
   </div>:<></>

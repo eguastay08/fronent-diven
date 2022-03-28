@@ -37,7 +37,7 @@ const Roles =(props)=> {
   useEffect(() => {
     alertify.set("notifier", "position", "bottom-rigth");
     if(typeof role.error!='undefined'){
-      role.error===false?alertify.success("Se creo correctamente"):alertify.error("Ocurrio un error al intentar Guardar")
+      role.error===false?alertify.success("Se creó correctamente"):alertify.error("Ocurrió un error al intentar Guardar")
       setBtnSubmit(false)
       setShow(false)
       store.dispatch(getRoles())
@@ -48,7 +48,7 @@ const Roles =(props)=> {
   useEffect(() => {
     alertify.set("notifier", "position", "bottom-rigth");
     if(typeof deleterole.error!='undefined'){
-      deleterole.error===false?alertify.success("Se elimino correctamente"):alertify.error("No se puede eliminar")
+      deleterole.error===false?alertify.success("Se eliminó correctamente"):alertify.error("No se puede eliminar")
       store.dispatch(getRoles())
       props.deleteRole()
     }
@@ -147,7 +147,7 @@ const Roles =(props)=> {
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
-          Close
+          Cerrar
         </Button>
         <Button type="submit" variant="primary">{btnSubmit ? 'Guardando...' : 'Guardar'}</Button>
       </Modal.Footer>
