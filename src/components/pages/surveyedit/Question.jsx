@@ -1,68 +1,85 @@
 import style from "./styles.module.scss";
 import Input from "../../molecules/input/Input";
 import Select from "../../molecules/Select";
-import {useState} from "react";
-import {FaTrashAlt} from "react-icons/fa";
+import {useEffect, useState} from "react";
+import {FaCalendarAlt, FaTrashAlt} from "react-icons/fa";
 import Options from "./Options";
-
-
-
+import {ImCheckboxUnchecked, ImParagraphJustify, ImRadioUnchecked} from "react-icons/im";
+import {MdAccessTime, MdOutlineShortText} from "react-icons/md";
+import {AiFillDownCircle} from "react-icons/ai";
+import {VscSymbolNumeric} from "react-icons/vsc";
 
 const Question=(props)=>{
-  const {stsave,options,cod_question,cod_survey}=props
+  const {stsave,options,cod_question,cod_survey,order}=props
   const [type_question, setType_question] = useState(props.type);
-  const [question] = useState(props.question);
   const [required] = useState(props.required);
-
+  const [questionVal, setQuestionVal] = useState('');
   const type_questions=[
     {
       label: "Respuesta Corta",
       value: "short_answer",
+      icon:<MdOutlineShortText/>
     },
     {
       label: "Párrafo",
-      value: "long_text"
+      value: "long_text",
+      icon:<ImParagraphJustify/>
     },
     {
       label: "Opción Multiple",
-      value: "multiple_choice"
+      value: "multiple_choice",
+      icon:<ImRadioUnchecked/>
     },
     {
       label: "Selección Multiple",
-      value: "checkboxes"
+      value: "checkboxes",
+      icon:<ImCheckboxUnchecked/>
     },
     {
       label: "Desplegable",
-      value: "dropdown"
+      value: "dropdown",
+      icon:<AiFillDownCircle/>
     },
     {
       label: "Fecha",
-      value: "date"
+      value: "date",
+      icon:<FaCalendarAlt/>
     },
     {
       label: "Hora",
-      value: "time"
+      value: "time",
+      icon:<MdAccessTime/>
     },
     {
       label: "Número",
-      value: "numerical"
+      value: "numerical",
+      icon:<VscSymbolNumeric/>
     }
   ]
 
+  useEffect(() => {
+   setQuestionVal(props.question)
+  }, [props.cod_question]);
 
-  return<section onClick={props.onClick} id={cod_question} className={style.question}>
+
+ const handleChangeQuestion=(e)=>{
+   setQuestionVal(e.target.value)
+ }
+
+  return<section onClick={()=>props.onClick(cod_question,order)} id={cod_question} className={style.question}>
     <div className={style.content}>
       <div className={style.cques}>
         <div className={style.cinpts} >
           <div className={style.cinput}>
             <Input
               name="question"
-              id="question"
+              id={Math.random()}
               type="text"
               label="Pregunta"
               autoComplete="off"
-              defaultValue={question}
+              defaultValue={questionVal}
               onBlur={props.onFocus}
+              onChange={handleChangeQuestion}
             />
           </div>
           <div className={style.select}>
