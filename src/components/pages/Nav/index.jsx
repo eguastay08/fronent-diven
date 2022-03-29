@@ -1,6 +1,6 @@
 import {Menu, MenuItem, ProSidebar, SidebarFooter} from "react-pro-sidebar"
 import {useEffect, useState} from "react"
-import {NavLink} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import Loading from "./Loading";
 import {connect} from "react-redux";
 import store from "../../../redux/store";
@@ -57,7 +57,8 @@ const Nav=(props)=>{
       </SidebarFooter>
       {!collapsed?<div className={style.footer}>
         <div>Copyright © 2022</div>
-        <div>Vicerrectorado de Investigación y Vinculación| UEB</div>
+        <div>Vicerrectorado de Investigación y Vinculación | UEB</div>
+        <a style={{color:'white'}} href="/humans/">Equipo de Desarrollo</a>
       </div>:<></>}
     </ProSidebar>)
 }
