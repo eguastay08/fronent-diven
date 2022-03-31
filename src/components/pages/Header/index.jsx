@@ -27,8 +27,6 @@ const Header=(props)=>{
         </Link>
       </div>
       <div className={style.datauser}>
-        <img src={imageuser}
-             alt={username}/>
         <span>
         <strong className={style.name}>{username}</strong>
         <Link to="/logout">Salir</Link>

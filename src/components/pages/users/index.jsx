@@ -133,7 +133,6 @@ const Users=(props)=>{
             <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Imagen</th>
               <th scope="col">Nombre</th>
               <th scope="col">Apellido</th>
               <th scope="col">Correo Electronico</th>
@@ -149,9 +148,6 @@ const Users=(props)=>{
                 return (
                   <tr key={e.id}>
                     <th scope="row">{e.id}</th>
-                    <td>
-                      <img className={style.image} src={e.photography} alt={`${e.name} ${e.lastname}`}/>
-                    </td>
                     <td>{e.name}</td>
                     <td>{e.lastname}</td>
                     <td>{e.email}</td>
