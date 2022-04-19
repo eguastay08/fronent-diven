@@ -72,7 +72,7 @@ const UserForm=(props)=>{
     },
     {
       label: "Femenino",
-      value: "femele",
+      value: "female",
     },
     {
       label: "Otro",
