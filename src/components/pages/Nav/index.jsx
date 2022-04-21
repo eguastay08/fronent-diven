@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 import store from "../../../redux/store";
 import {getNavigation} from "../../../redux/actionCreators";
 import ItemNav from "./ItemNav";
-import {ImExit} from "react-icons/im";
+import {ImDownload, ImDownload2, ImExit} from "react-icons/im";
 import {FaChevronCircleLeft, FaChevronCircleRight} from "react-icons/fa";
 import style from '../../../styles/styles.module.scss'
 
@@ -36,6 +36,11 @@ const Nav=(props)=>{
       onToggle={handleToggleSidebar}
     >
       {nav.usernav ? <ItemNav data={nav.usernav} /> : <></>}
+      <Menu iconShape="circle">
+        <MenuItem icon={<ImDownload2 />}>
+          <a href="/DIVEN-1.0.0-SNAPSHOT-1.apk" target="_blank">Aplicación Móvil</a>
+        </MenuItem>
+      </Menu>
       <div className="btn-logout-bar">
         <Menu>
           <MenuItem icon={<ImExit />}>
