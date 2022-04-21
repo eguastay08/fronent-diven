@@ -58,6 +58,7 @@ const SurveyView=(props)=>{
                         {
                           e.questions.map((e,i)=>{
                             return <QuestionView
+                              id={i+1}
                               key={i}
                               {...e}
                             />

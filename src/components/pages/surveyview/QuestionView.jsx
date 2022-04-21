@@ -5,7 +5,7 @@ import Textarea from "../../molecules/textarea/textarea";
 import Select from "../../molecules/Select";
 
 const QuestionView=(props)=>{
-  const {question,cod_question,type} =props
+  const {question,cod_question,type,id} =props
   const [options, setOptions] = useState(props.options);
   const [opc, setOpc] = useState([]);
 
@@ -30,7 +30,7 @@ const QuestionView=(props)=>{
                   name={cod_question}
                   id={cod_question}
                   type="text"
-                  label={question}
+                  label={`${id}. ${question}`}
                   autoComplete="off"
                 />
                 :type==='numerical'?
@@ -38,14 +38,14 @@ const QuestionView=(props)=>{
                     name={cod_question}
                     id={cod_question}
                     type="number"
-                    label={question}
+                    label={`${id}. ${question}`}
                     autoComplete="off"
                   />
                   :type==='long_text'?
                     <Textarea
                       name={cod_question}
                       id={cod_question}
-                      label={question}
+                      label={`${id}. ${question}`}
                       autoComplete="off"
                     />
                     :type==='date'?
@@ -53,7 +53,7 @@ const QuestionView=(props)=>{
                         name={cod_question}
                         id={cod_question}
                         type="date"
-                        label={question}
+                        label={`${id}. ${question}`}
                         autoComplete="off"
                       />
                       :type==='time'?
@@ -61,19 +61,19 @@ const QuestionView=(props)=>{
                           name={cod_question}
                           id={cod_question}
                           type="time"
-                          label={question}
+                          label={`${id}. ${question}`}
                           autoComplete="off"
                         />:type==='datetime'?
                           <Input
                             name={cod_question}
                             id={cod_question}
                             type="datetime-local"
-                            label={question}
+                            label={`${id}. ${question}`}
                             autoComplete="off"
                           />
                         :type==='multiple_choice'?
                         <div>
-                          <div style={{fontWeight:'bold', marginBottom:10}}>{question}</div>
+                          <div style={{fontWeight:'bold', marginBottom:10}}>{`${id}. ${question}`}</div>
                           {
                             options.map((e,i)=>{
                               return  <div key={i}>
@@ -85,7 +85,7 @@ const QuestionView=(props)=>{
                         </div>
                           :type==='checkboxes'?
                             <div>
-                                <div style={{fontWeight:'bold', marginBottom:10}}>{question}</div>
+                                <div style={{fontWeight:'bold', marginBottom:10}}>{`${id}. ${question}`}</div>
                               {
                                 options.map((e,i)=>{
                                   return  <div key={i}>
@@ -99,7 +99,7 @@ const QuestionView=(props)=>{
                                 <Select
                                   name={cod_question}
                                   id={cod_question}
-                                  label={question}
+                                  label={`${id}. ${question}`}
                                   autoComplete="off"
                                   options={opc}
                                 />
