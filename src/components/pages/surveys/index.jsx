@@ -73,7 +73,13 @@ const Surveys=(props)=>{
   useEffect(() => {
     alertify.set("notifier", "position", "bottom-rigth");
     if(typeof postsurvey.error!='undefined'){
-      postsurvey.error===false?alertify.success("Se agregó correctamente"):alertify.error("Ocurrió un error al intentar agregar")
+
+      postsurvey.error===false?alertify.success("Se agregó correctamente"):!Array.isArray((postsurvey.errors))?
+        Object.values(postsurvey.errors)?.map((e)=>{
+          console.log(e)
+          alertify.error(e[0])
+        }):alertify.error("Ocurrió un error, intente nuevamente")
+
       setBtnSubmit(false)
       setShow(false)
       store.dispatch(getSurveys(id))
