@@ -14,7 +14,7 @@ import {
   GET_ROL,
   GET_ROLES,
   GET_SURVEY,
-  GET_SURVEYS, GET_SURVEYS_RESPONSES,
+  GET_SURVEYS, GET_SURVEYS_GRAPHS, GET_SURVEYS_RESPONSES,
   GET_USER,
   GET_USER_LOGGEDIN,
   GET_USERS,
@@ -1187,6 +1187,37 @@ export const getResponses = (id=null) => (dispatch) => {
         verifyError(err.response)
         return dispatch({
           type: GET_SURVEYS_RESPONSES,
+          error: true,
+          errors: err.response.data,
+        });
+      });
+  }
+};
+
+export const getGraphs = (id=null) => (dispatch) => {
+  const token = verifyToken();
+  if(id===null){
+    return dispatch({
+      type: GET_SURVEYS_GRAPHS,
+      clean: true,
+    });
+  }else {
+    Axios.get(`${API_URL}/api/v1/surveys/${id}/graphs`, {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((resp) => {
+        return dispatch({
+          type: GET_SURVEYS_GRAPHS,
+          graphs: resp.data.data,
+        });
+      })
+      .catch((err) => {
+        verifyError(err.response)
+        return dispatch({
+          type: GET_SURVEYS_GRAPHS,
           error: true,
           errors: err.response.data,
         });

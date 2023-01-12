@@ -17,7 +17,7 @@ const Card=(props)=>{
         <div>
           <b>Resolución:</b> {resolution}
         </div>
-        <div>
+        <div className={style.detail}>
           <b>Detalle:</b> {detail}
         </div>
         <div>

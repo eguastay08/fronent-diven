@@ -14,7 +14,7 @@ import {
   GET_ROL,
   GET_ROLES,
   GET_SURVEY,
-  GET_SURVEYS, GET_SURVEYS_RESPONSES,
+  GET_SURVEYS, GET_SURVEYS_GRAPHS, GET_SURVEYS_RESPONSES,
   GET_USER,
   GET_USER_LOGGEDIN,
   GET_USERS,
@@ -726,6 +726,24 @@ export const getResponses=(state={}, action)=>{
     return {
       error:false,
       response:action.response
+    }
+  }
+  return state
+}
+
+export const getGraphs=(state={}, action)=>{
+  if(action.type===GET_SURVEYS_GRAPHS){
+    if(action.error===true){
+      return{
+        error:true,
+        errors:action.errors
+      }
+    }else if(action.clean===true){
+      return {}
+    }
+    return {
+      error:false,
+      graphs:action.graphs
     }
   }
   return state

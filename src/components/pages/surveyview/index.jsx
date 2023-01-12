@@ -4,14 +4,15 @@ import logo from "../../../assets/img.png";
 import React, {useEffect, useState} from "react";
 import {connect} from "react-redux";
 import store from "../../../redux/store";
-import {getSurvey} from "../../../redux/actionCreators";
+import {getProject, getSurvey} from "../../../redux/actionCreators";
 import SectionView from "./SectionView";
 import Question from "../surveyedit/Question";
 import QuestionView from "./QuestionView";
+import style_menu from "../../../styles/styles.module.scss";
 
 const SurveyView=(props)=>{
   const { id } = useParams()
-  const{match,survey}=props
+  const{match,survey,project}=props
   const [surveyname, setSurveyName] = useState('');
   const [sections, setSections] = useState([]);
   const [secname, setSecname] = useState('');
@@ -19,6 +20,7 @@ const SurveyView=(props)=>{
   useEffect(() => {
     setSections([])
     if(survey.survey){
+      store.dispatch(getProject(survey.survey.cod_project))
       setSurveyName(survey.survey.name)
       if(survey.survey.sections.length===0){
         setSecname(survey.survey.name)
@@ -35,9 +37,32 @@ const SurveyView=(props)=>{
 
   return<>
     <div className="card">
-      <div className="card-header">
+      <div className={`card-header ${style.header}`}>
         <div className={style.row}>
-          <h6 className="col-11 m-0 font-weight-bold text-primary"> Vista Previa {surveyname}</h6>
+          <div className={style_menu.page_navbar}>
+            <nav>
+              <ol className={style_menu.breadcrumb}>
+                <li>
+                  <Link to="/home">Inicio</Link>
+                </li>
+                <li>
+                  <Link to="/projects">Proyectos</Link>
+                </li>
+                <li>
+                  <span>{project?.project?.name}</span>
+                </li>
+                <li>
+                  <Link to={`/projects/${project?.project?.cod_project}/surveys`}>Encuestas</Link>
+                </li>
+                <li>
+                  <span>{surveyname}</span>
+                </li>
+                <li>
+                  <span>Vista Previa</span>
+                </li>
+              </ol>
+            </nav>
+          </div>
         </div>
       </div>
       <div className="card-body py-3" style={{ background: '#F3F5F8'}}>
@@ -79,6 +104,8 @@ const SurveyView=(props)=>{
 
 const mapStateToProps = (state) => ({
   survey: state.SurveyState,
+  //project
+  project:state.ProjectState
 })
 
 export default connect(mapStateToProps, {})(SurveyView)

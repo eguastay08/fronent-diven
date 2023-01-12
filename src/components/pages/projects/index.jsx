@@ -178,10 +178,10 @@ const Projects=(props)=>{
         "cod_dpa":cod_dpa
       }
 
-      if(e.target.send.value=='post')
+      if(e.target.send.value==='post')
         props.postProject(data)
 
-      if(e.target.send.value=='put')
+      if(e.target.send.value==='put')
         props.putProject(codproject,data)
   }
 

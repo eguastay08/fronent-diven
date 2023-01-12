@@ -3,6 +3,7 @@ import style from './styles.module.scss'
 const Select=(props)=>{
   const {options,label,defaultValue,id,name,required,handleChange,onBlur,opnull}= props
   return <div className={`${style.select} ${props.sty}`} >
+    <span><b>{label}</b></span>
     <select onBlur={onBlur} onChange={handleChange} required={required} id={id}  name={name} defaultValue={defaultValue}  className={'form-select form-control'} >
       {!opnull?<option value="">Seleccionar...</option>:<></>}
     {
@@ -11,9 +12,6 @@ const Select=(props)=>{
       }):<></>
     }
   </select>
-    <label htmlFor={name} className="form-label">
-      {label}
-    </label>
   </div>
 }
 export default Select

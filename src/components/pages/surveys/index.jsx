@@ -1,4 +1,5 @@
 import style from "../projects/styles.module.scss";
+import style_menu from "../../../styles/styles.module.scss"
 import {Button, Modal} from "react-bootstrap";
 import {useEffect, useState} from "react";
 import Card from "./Card";
@@ -61,7 +62,6 @@ const Surveys=(props)=>{
 
 
   useEffect(() => {
-    store.dispatch(getProject(id))
     store.dispatch(getSurveys(id))
   }, [match]);
 
@@ -270,7 +270,24 @@ const Surveys=(props)=>{
     <div className="card">
       <div className="card-header">
         <div className={style.row}>
-          <h6 className="col-11 m-0 font-weight-bold text-primary">Encuestas proyecto {nameproject}</h6>
+          <div className={style_menu.page_navbar}>
+            <nav>
+              <ol className={style_menu.breadcrumb}>
+                <li>
+                  <Link to="/home">Inicio</Link>
+                </li>
+                <li>
+                  <Link to="/projects">Proyectos</Link>
+                </li>
+                <li>
+                  <span>{nameproject}</span>
+                </li>
+                <li>
+                  <span>Encuestas</span>
+                </li>
+              </ol>
+            </nav>
+          </div>
           {postSurvey?<Button className="btn btn-primary" variant="primary" onClick={handleShow}>
             Nuevo
           </Button>:<></>}
@@ -302,6 +319,7 @@ const Surveys=(props)=>{
         {deleteSurvey?<li className={style.option} ><a onClick={handleClickDel}>Eliminar</a></li>:<></>}
         {postSurvey?<li className={style.option}><a onClick={handleDuplicate}>Duplicar</a></li>:<></>}
         {postSurvey?<li className={style.option} ><a onClick={handleDownload}>Descargar Respuestas</a></li>:<></>}
+        {postSurvey?<li className={style.option}><Link to={`/surveys/${codsurvey}/graphs`}>Gráficos</Link></li>:<></>}
       </ul>
     </div>
     <Modal

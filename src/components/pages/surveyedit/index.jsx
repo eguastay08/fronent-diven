@@ -1,5 +1,5 @@
 import {
-  deleteQuestion, deleteSection,
+  deleteQuestion, deleteSection, getProject,
   getSurvey,
   postQuestion,
   postSection,
@@ -7,7 +7,7 @@ import {
   putSection
 } from "../../../redux/actionCreators";
 import {connect} from "react-redux";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import store from "../../../redux/store";
 import style from "./styles.module.scss";
@@ -15,10 +15,12 @@ import Section from "./Section";
 import {FaListOl, FaPlusCircle} from "react-icons/fa";
 import Question from "./Question";
 import alertify from "alertifyjs";
+import style_menu from "../../../styles/styles.module.scss";
+import {getProject as ProjectState} from "../../../redux/reducers";
 
 const SurveyEdit=(props)=>{
   const { id } = useParams()
-  const{match,survey,postsection,putsection,deletequestion,deletesection,putquestion,postquestion,scrooltop,userloggedin}=props
+  const{match,survey,postsection,putsection,deletequestion,deletesection,putquestion,postquestion,scrooltop,userloggedin,project}=props
   const [surveyname, setSurveyName] = useState('');
   const [top, setTop] = useState(0);
   const [sections, setSections] = useState([]);
@@ -53,6 +55,7 @@ const SurveyEdit=(props)=>{
 
   useEffect(() => {
     if(survey.survey){
+      store.dispatch(getProject(survey.survey.cod_project))
       setSurveyName(survey.survey.name)
       setSections([])
       if(survey.survey.sections.length===0){
@@ -260,8 +263,31 @@ const SurveyEdit=(props)=>{
     <div className="card">
       <div className={`card-header ${style.header}`}>
         <div className={style.row}>
-          <h6 className="col-11 m-0 font-weight-bold text-primary">{surveyname}</h6>
-          <span style={{position: 'absolute',fontSize: '10px',color: '#5f6368',fontStyle: 'italic'}}>{saving?'Guardando...':'Todos los cambios guardados'}</span>
+          <div className={style_menu.page_navbar}>
+            <nav>
+              <ol className={style_menu.breadcrumb}>
+                <li>
+                  <Link to="/home">Inicio</Link>
+                </li>
+                <li>
+                  <Link to="/projects">Proyectos</Link>
+                </li>
+                <li>
+                  <span>{project?.project?.name}</span>
+                </li>
+                <li>
+                  <Link to={`/projects/${project?.project?.cod_project}/surveys`}>Encuestas</Link>
+                </li>
+                <li>
+                  <span>{surveyname}</span>
+                </li>
+                <li>
+                  <span>Preguntas</span>
+                </li>
+              </ol>
+            </nav>
+          </div>
+          <span style={{position: 'relative',fontSize: '10px',color: '#5f6368',fontStyle: 'italic'}}>{saving?'Guardando...':'Todos los cambios guardados'}</span>
         </div>
       </div>
       <div className="card-body py-3" style={{ background: '#F3F5F8'}}>
@@ -326,7 +352,9 @@ const mapStateToProps = (state) => ({
   deletequestion:state.DeleteQuestionState,
   putquestion:state.PutQuestionState,
   postquestion:state.PostQuestionState,
-  userloggedin: state.userLoggedInState
+  userloggedin: state.userLoggedInState,
+  //project
+  project:state.ProjectState
 
 })
 

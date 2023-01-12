@@ -18,6 +18,7 @@ import SurveyEdit from "./pages/surveyedit";
 import SurveyView from "./pages/surveyview";
 import {useState} from "react";
 import Error404 from "./pages/Error/Error404";
+import Graphs from "./pages/graphs";
 
 const App=()=> {
   const [scrooltop, setScrooltop] = useState(0);
@@ -39,6 +40,8 @@ const App=()=> {
           <Route path="/projects/:id" exact element={<Protected><Projects/></Protected>}/>
           <Route path="/projects/:id/members" exact element={<Protected><Members/></Protected>}/>
           <Route path="/projects/:id/surveys" exact element={<Protected><Surveys/></Protected>}/>
+          <Route path="/surveys/:id/graphs" exact element={<Protected><Graphs/></Protected>}/>
+
           <Route path="/surveys/:id/edit" exact element={
             <Protected setScrooltop={setScrooltop} >
               <SurveyEdit scrooltop={scrooltop}/>

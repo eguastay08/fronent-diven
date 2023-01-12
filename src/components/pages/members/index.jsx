@@ -1,5 +1,5 @@
 import style from './style.module.scss'
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {connect} from "react-redux";
 import {useEffect, useState} from "react";
 import store from "../../../redux/store";
@@ -14,6 +14,7 @@ import {
 } from "../../../redux/actionCreators";
 import Input from "../../molecules/input/Input";
 import alertify from "alertifyjs";
+import style_menu from "../../../styles/styles.module.scss";
 
 const Members=(props)=>{
   const { id } = useParams()
@@ -149,7 +150,24 @@ const Members=(props)=>{
   return<div className="card">
     <div className="card-header">
       <div className={style.row}>
-        <h6 style={{textAlign:'center'}} className="col-11 m-0 font-weight-bold text-primary">Administrar Miembros Proyecto {name}</h6>
+        <div className={style_menu.page_navbar}>
+          <nav>
+            <ol className={style_menu.breadcrumb}>
+              <li>
+                <Link to="/home">Inicio</Link>
+              </li>
+              <li>
+                <Link to="/projects">Proyectos</Link>
+              </li>
+              <li>
+                <span>{name}</span>
+              </li>
+              <li>
+                <span>Miembros</span>
+              </li>
+            </ol>
+          </nav>
+        </div>
       </div>
     </div>
     <div className="card-body py-3">

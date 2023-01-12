@@ -1,16 +1,7 @@
 .row{
-  min-height: 50px;
   display: flex;
-  align-content: center;
+  justify-content: space-between;
   align-items: center;
-  text-align: center;
-  flex-direction: row-reverse;
-  .logo{
-    img{
-      width: 50px;
-    }
-
-  }
 }
 
 .header{
