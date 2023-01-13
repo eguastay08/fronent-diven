@@ -11,11 +11,10 @@ const Graphs=(props,match)=>{
   const { id } = useParams()
   const{project,survey,graphs}=props
   const [surveyname, setSurveyName] = useState('');
-  const [number_question, setNumberQuestion] = useState(0);
+  const [number_question, setNumberQuestion] = useState(1);
   const [tot_questions, setTotQuestions] = useState(null);
-  const [question, setQuestion] = useState("Aqui la question");
-  const [data, setData] = useState(null);
-  const [options, setOptions] = useState([]);
+  const [currentGraph, setCurrentGraph] = useState(<div>Sin grafico</div>);
+
 
   useEffect(() => {
     store.dispatch(getSurvey(id))
@@ -38,16 +37,21 @@ const Graphs=(props,match)=>{
   useEffect(() => {
     if(graphs.graphs){
       const gr=graphs.graphs
-      setQuestion(gr[number_question]?.question)
-      setOptions(gr[number_question]?.options)
+      const ans = gr[number_question].answers
+      console.log(ans)
       const dat = [
         {
-          name: " ",
-          ...gr[number_question].answers
+          name: gr[number_question]?.question,
+          ...ans
         }
       ];
-      setData(dat)
-      console.log(question)
+        setCurrentGraph(
+          <GraphBarChart
+            data={dat}
+            question={gr[number_question]?.question}
+            options={gr[number_question]?.options}
+          />
+        )
     }
   }, [number_question,graphs]);
 
@@ -56,6 +60,12 @@ const Graphs=(props,match)=>{
   const handleClickNext=()=>{
     if(number_question<tot_questions-1){
       setNumberQuestion(number_question+1);
+    }
+  }
+
+  const handleClickBack=()=>{
+    if(number_question>0){
+      setNumberQuestion(number_question-1);
     }
   }
 
@@ -93,16 +103,11 @@ const Graphs=(props,match)=>{
         <div className={style.container}>
           {!tot_questions?<h1>No existen preguntas</h1>:
             <>
-              {number_question===0?<GraphBarChart
-                data={data}
-                question={question}
-                options={options}
-              />:<GraphBarChart
-                data={data}
-                question={question}
-                options={options}
-              />}
-             {/* <button onClick={handleClickNext}>Siguiente</button>*/}
+              {currentGraph?currentGraph:<div>Sin grafico</div>}
+              <div>
+                <button onClick={handleClickBack}>Anterior</button>
+                <button onClick={handleClickNext}>Siguiente</button>
+              </div>
             </>
           }
         </div>

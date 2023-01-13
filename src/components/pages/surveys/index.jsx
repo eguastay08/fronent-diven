@@ -63,6 +63,7 @@ const Surveys=(props)=>{
 
   useEffect(() => {
     store.dispatch(getSurveys(id))
+    store.dispatch(getProject(id))
   }, [match]);
 
   useEffect(() => {

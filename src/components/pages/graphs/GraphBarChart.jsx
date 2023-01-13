@@ -1,7 +1,15 @@
 import {Bar, BarChart, CartesianGrid, Legend, Tooltip, XAxis, YAxis} from "recharts";
+import {useEffect} from "react";
 
 const GraphBarChart=(props)=>{
   const {data,question,options}=props
+
+  useEffect(() => {
+    console.log('Componente montado' +question);
+    return () => {
+      console.log('Componente desmontado' +question);
+    };
+  }, []);
 
   const colors=[
     '#2e8bbe',
@@ -18,7 +26,7 @@ const GraphBarChart=(props)=>{
     <BarChart
       width={700}
       height={500}
-      data={data}
+      data={[]}
       margin={{
         top: 5,
         right: 30,
@@ -29,7 +37,6 @@ const GraphBarChart=(props)=>{
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="name" />
       <YAxis />
-      <Tooltip />
       <Legend />
       {
         options?.map((e,key)=>{

@@ -1410,6 +1410,11 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
+"@kurkle/color@^0.3.0":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@kurkle/color/-/color-0.3.2.tgz#5acd38242e8bde4f9986e7913c8fdf49d3aa199f"
+  integrity sha512-fuscdXJ9G1qb7W8VdHi+IwRqij3lBkosAm4ydQtEmbY58OzHXqQhvlxqEkoz0yssNVn38bcpRWgA9PP+OGoisw==
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.npmjs.org/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz"
@@ -3137,6 +3142,18 @@ charcodes@^0.2.0:
   version "0.2.0"
   resolved "https://registry.npmjs.org/charcodes/-/charcodes-0.2.0.tgz"
   integrity sha512-Y4kiDb+AM4Ecy58YkuZrrSRJBDQdQ2L+NyS1vHHFtNtUjgutcZfx3yp1dAONI/oPaPmyGfCLx5CxL+zauIMyKQ==
+
+chart.js@^4.1.2:
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/chart.js/-/chart.js-4.1.2.tgz#04e3ba63dbc36a2af21caf46ae31940514cb644a"
+  integrity sha512-9L1w6WLPq6ztiWVVOYtDtpo0CUsBKDWPrUEdwChAyzczaikqeSwNKEv3QpJ7EO4ICcLSi6UDVhgvcnUhRJidRA==
+  dependencies:
+    "@kurkle/color" "^0.3.0"
+
+chartjs@^0.3.24:
+  version "0.3.24"
+  resolved "https://registry.yarnpkg.com/chartjs/-/chartjs-0.3.24.tgz#3addeb5ae3606b3e89e346c27d52ca158416e93d"
+  integrity sha512-h6G9qcDqmFYnSWqjWCzQMeOLiypS+pM6Fq2Rj7LPty8Kjx5yHonwwJ7oEHImZpQ2u9Pu36XGYfardvvBiQVrhg==
 
 check-types@^11.1.1:
   version "11.1.2"
