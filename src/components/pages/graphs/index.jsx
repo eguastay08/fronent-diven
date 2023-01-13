@@ -37,7 +37,7 @@ const Graphs=(props,match)=>{
   useEffect(() => {
     if(graphs.graphs){
       const gr=graphs.graphs
-      const ans = gr[number_question].answers
+      const ans = gr[number_question]?.answers??0
       console.log(ans)
       const dat = [
         {
