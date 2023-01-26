@@ -1,8 +1,7 @@
-import {Bar, BarChart, CartesianGrid, Legend, Tooltip, XAxis, YAxis} from "recharts";
 import {useEffect, useRef, useState} from "react";
 import * as echarts from "echarts";
 
-const GraphBarChart=(props)=>{
+const GraphPieChart=(props)=>{
   const {question,options, answers}=props
   const [chart, setChart] = useState(null);
   const chartRef = useRef(null);
@@ -18,28 +17,31 @@ const GraphBarChart=(props)=>{
   ];
 
   useEffect(() => {
-    console.log(options)
-    console.log(answers)
     if (chart) {
       chart.dispose();
     }
     const newChart = echarts.init(chartRef.current);
     setChart(newChart);
+    console.log(answers)
     newChart.setOption({
-      xAxis: {
-        type: 'category',
-        data: options
+      tooltip: {
+        trigger: 'item'
       },
-      yAxis: {
-        type: 'value'
+      legend: {
+        orient: 'vertical',
+        left: 'left'
       },
       series: [
         {
-          data: answers,
-          type: 'bar',
-          showBackground: true,
-          backgroundStyle: {
-            color: 'rgba(180, 180, 180, 0.2)'
+          type: 'pie',
+          radius: '50%',
+          data:answers,
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: 'rgba(0, 0, 0, 0.5)'
+            }
           }
         }
       ]
@@ -53,4 +55,4 @@ const GraphBarChart=(props)=>{
   </>
 }
 
-export default GraphBarChart
+export default GraphPieChart
