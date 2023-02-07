@@ -1,21 +1,11 @@
-import {Bar, BarChart, CartesianGrid, Legend, Tooltip, XAxis, YAxis} from "recharts";
 import {useEffect, useRef, useState} from "react";
 import * as echarts from "echarts";
-
+import styles from './style.module.scss'
 const GraphBarChart=(props)=>{
   const {question,options, answers}=props
   const [chart, setChart] = useState(null);
   const chartRef = useRef(null);
-
-  const colors=[
-    '#2e8bbe',
-    '#62b3df',
-    '#2e89bb',
-    '#627bdf',
-    '#43d3a1',
-    '#54be76',
-    '#7d62df',
-  ];
+  
 
   useEffect(() => {
     console.log(options)
@@ -48,7 +38,7 @@ const GraphBarChart=(props)=>{
 
 
   return <>
-    <h3>{question.question}</h3>
+    <h3 className={styles.title}>{question.question}</h3>
     <div ref={chartRef} style={{ width: '100%', height: '500px' }} />
   </>
 }

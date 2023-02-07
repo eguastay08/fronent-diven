@@ -2,6 +2,7 @@ import {useEffect, useRef, useState} from 'react';
 import * as echarts from "echarts";
 import wordcloud from 'echarts-wordcloud';
 import question from "../surveyedit/Question";
+import styles from "./style.module.scss";
 
 const GraphWordCloudChart = (props) => {
   const chartRef = useRef(null);
@@ -55,7 +56,7 @@ const GraphWordCloudChart = (props) => {
   }, [question]);
 
   return <>
-    <h3>{question.question}</h3>
+    <h3 className={styles.title}>{question.question}</h3>
     <div ref={chartRef} style={{ width: '100%', height: '500px' }} />
   </>
 };

@@ -4,7 +4,6 @@ import GraphWordCloudChart from "./GraphWordCloudChart";
 
 const ManageCharts=(props)=>{
   const {question,options, answers}=props
-  console.log(question)
   switch (question?.type){
     case 'checkboxes':
       return <GraphBarChart

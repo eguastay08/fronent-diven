@@ -1,5 +1,6 @@
 import {useEffect, useRef, useState} from "react";
 import * as echarts from "echarts";
+import styles from "./style.module.scss";
 
 const GraphPieChart=(props)=>{
   const {question,options, answers}=props
@@ -50,7 +51,7 @@ const GraphPieChart=(props)=>{
 
 
   return <>
-    <h3>{question.question}</h3>
+    <h3 className={styles.title}>{question.question}</h3>
     <div ref={chartRef} style={{ width: '100%', height: '500px' }} />
   </>
 }
