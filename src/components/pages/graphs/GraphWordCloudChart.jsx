@@ -45,7 +45,8 @@ const GraphWordCloudChart = (props) => {
           },
           emphasis: {
             shadowBlur: 10,
-            shadowColor: '#333'
+            shadowColor: '#333',
+            width: '100%'
           }
         },
         data: question?.data??[]

@@ -48,20 +48,6 @@ const Demo=(props,match)=>{
     }
   }, [graphs]);
 
-
-
-  const handleClickNext = () => {
-    if (number_question < tot_questions - 1) {
-      setNumberQuestion(number_question + 1);
-    }
-  }
-
-  const handleClickBack = () => {
-    if (number_question > 0) {
-      setNumberQuestion(number_question - 1);
-    }
-  }
-
   return (
     <>
     <div className="card">
@@ -98,6 +84,7 @@ const Demo=(props,match)=>{
           <div className={style.charts}>
               {
                   loading?<p>Cargando...</p>:
+                    survey?.survey?.tot_answers===0?<div><h2>Sin respuestas</h2></div>:
                     graphs?.graphs?.map((e,i)=>{
                      return <div onDoubleClick={handleShow} onClick={()=>{
                        setQuestion(e??'Sin Preguntas')

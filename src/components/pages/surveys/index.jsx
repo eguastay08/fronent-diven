@@ -158,8 +158,14 @@ const Surveys=(props)=>{
   const handleContextMenu=(e,id,name)=>{
     e.preventDefault()
     setLeftContextMenu(e.pageX)
-    if((window.innerHeight-e.pageY)<250){
-      setTopContextMenu(e.pageY-250)
+    if(window.innerWidth-e.pageX<100){
+      setLeftContextMenu(e.pageX-200)
+    }else{
+      setLeftContextMenu(e.pageX)
+    }
+
+    if((window.innerHeight-e.pageY)<150){
+      setTopContextMenu(e.pageY-150)
     }else{
       setTopContextMenu(e.pageY)
     }

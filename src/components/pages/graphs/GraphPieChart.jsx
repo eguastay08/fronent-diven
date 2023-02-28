@@ -7,16 +7,6 @@ const GraphPieChart=(props)=>{
   const [chart, setChart] = useState(null);
   const chartRef = useRef(null);
 
-  const colors=[
-    '#2e8bbe',
-    '#62b3df',
-    '#2e89bb',
-    '#627bdf',
-    '#43d3a1',
-    '#54be76',
-    '#7d62df',
-  ];
-
   useEffect(() => {
     if (chart) {
       chart.dispose();
@@ -26,11 +16,25 @@ const GraphPieChart=(props)=>{
     console.log(answers)
     newChart.setOption({
       tooltip: {
-        trigger: 'item'
+        trigger: 'item',
+        formatter: function(params) {
+          var percent = ((params.value / answers.reduce((a, b) => a + b.value, 0)) * 100).toFixed(2);
+          return `${params.name}: ${params.value} (${percent}%)`;
+        }
       },
       legend: {
         orient: 'vertical',
-        left: 'left'
+        left: 'left',
+        formatter: function(name) {
+          var value = 0;
+          answers.forEach(function(answer) {
+            if (answer.name === name) {
+              value = answer.value;
+            }
+          });
+          var percent = ((value / answers.reduce((a, b) => a + b.value, 0)) * 100).toFixed(2);
+          return `${name} => (${percent}%)`;
+        }
       },
       series: [
         {
@@ -41,7 +45,8 @@ const GraphPieChart=(props)=>{
             itemStyle: {
               shadowBlur: 10,
               shadowOffsetX: 0,
-              shadowColor: 'rgba(0, 0, 0, 0.5)'
+              shadowColor: 'rgba(0, 0, 0, 0.5)',
+              width:'100%'
             }
           }
         }

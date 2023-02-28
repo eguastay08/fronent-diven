@@ -54,7 +54,12 @@ const Question=(props)=>{
       label: "Número",
       value: "numerical",
       icon:<VscSymbolNumeric/>
-    }
+    },
+    {
+      label: "Fotografiá",
+      value: "image",
+      icon:<ImParagraphJustify/>
+    },
   ]
 
   useEffect(() => {

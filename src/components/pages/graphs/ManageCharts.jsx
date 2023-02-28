@@ -3,13 +3,14 @@ import GraphPieChart from "./GraphPieChart";
 import GraphWordCloudChart from "./GraphWordCloudChart";
 
 const ManageCharts=(props)=>{
-  const {question,options, answers}=props
+  const {question,options, answers,tot_answers}=props
   switch (question?.type){
     case 'checkboxes':
       return <GraphBarChart
         question={question}
         options={options}
         answers={answers}
+        tot_answers={tot_answers}
       />
       break;
     case 'dropdown':
@@ -18,6 +19,7 @@ const ManageCharts=(props)=>{
         question={question}
         options={options}
         answers={answers}
+        tot_answers={tot_answers}
       />
       break;
     case 'short_answer':
@@ -26,6 +28,7 @@ const ManageCharts=(props)=>{
         question={question}
         options={options}
         answers={answers}
+        tot_answers={tot_answers}
       />
       break;
       default:
