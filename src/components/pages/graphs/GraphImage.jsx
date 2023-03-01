@@ -37,7 +37,7 @@ const GraphImage=(props)=>{
               {
                 question?.data.map((e,i)=>{
                   return <div className={style.chart}>
-                    <img src={`${API_URL}/api/v1/image/${e?.image}`} style={{width:'100%'}}/>
+                    <img src={`${API_URL}/api/v1/image/${e?.image}`} style={{width:'100%', height:'400px'}}/>
                     <div>{e?.answer_txt}</div>
                   </div>
                 })
