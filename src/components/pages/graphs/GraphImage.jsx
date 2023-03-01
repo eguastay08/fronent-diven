@@ -6,7 +6,7 @@ import style from "./style.module.scss";
 
 const GraphImage=(props)=>{
   const {question}=props
-  const [show, setShow] = useState(true);
+  const [show, setShow] = useState(false);
   const API_URL = process.env.REACT_APP_API_URL;
 
   const handleClose = () =>setShow(false)
