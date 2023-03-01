@@ -1,6 +1,7 @@
 import GraphBarChart from "./GraphBarChart";
 import GraphPieChart from "./GraphPieChart";
 import GraphWordCloudChart from "./GraphWordCloudChart";
+import GraphImage from "./GraphImage";
 
 const ManageCharts=(props)=>{
   const {question,options, answers,tot_answers}=props
@@ -25,6 +26,14 @@ const ManageCharts=(props)=>{
     case 'short_answer':
     case 'long_text':
       return <GraphWordCloudChart
+        question={question}
+        options={options}
+        answers={answers}
+        tot_answers={tot_answers}
+      />
+      break;
+    case 'image':
+      return <GraphImage
         question={question}
         options={options}
         answers={answers}
