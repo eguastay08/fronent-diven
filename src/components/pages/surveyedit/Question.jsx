@@ -56,7 +56,7 @@ const Question=(props)=>{
       icon:<VscSymbolNumeric/>
     },
     {
-      label: "Fotografiá",
+      label: "Fotografía",
       value: "image",
       icon:<ImParagraphJustify/>
     },

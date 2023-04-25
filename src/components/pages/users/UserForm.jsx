@@ -156,8 +156,10 @@ const UserForm=(props)=>{
               name="cod_rol"
               defaultValue={data.role.cod_rol}
             />:<></>}
-              <button type="submit" className="btn btn-primary col-md-8 col-lg-3">{btnSubmit ? 'Guardando...' : 'Guardar'}</button>
-              <Link to={'/users'} className="btn btn-secondary col-md-8 col-lg-3 ms-3">Cancelar</Link>
+              <div style={{marginTop:50}}>
+                <button type="submit" className="btn btn-primary col-md-8 col-lg-3">{btnSubmit ? 'Guardando...' : 'Guardar'}</button>
+                <Link to={'/users'} className="btn btn-secondary col-md-8 col-lg-3 ms-3">Cancelar</Link>
+              </div>
             </div>
           </form>
         </div>

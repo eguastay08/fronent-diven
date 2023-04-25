@@ -38,7 +38,7 @@ const Nav=(props)=>{
       {nav.usernav ? <ItemNav data={nav.usernav} /> : <></>}
       <Menu iconShape="circle">
         <MenuItem icon={<ImDownload2 />}>
-          <a href="/DIVEN-1.1.0-SNAPSHOT-1.apk" target="_blank">Aplicación Móvil</a>
+          <a href="/DIVEN-1.1.0-SNAPSHOT-2.apk" target="_blank">Aplicación Móvil</a>
         </MenuItem>
       </Menu>
       <div className="btn-logout-bar">
