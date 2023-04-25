@@ -87,7 +87,7 @@ export default function Login(){
             </div>
           </div>
           <div className={style.footer}>
-            <div>Copyright © 2022</div>
+            <div>Copyright © 2023</div>
             <div>Vicerrectorado de Investigación y Vinculación| UEB</div>
           </div>
         </div>

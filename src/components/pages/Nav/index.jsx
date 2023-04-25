@@ -38,7 +38,7 @@ const Nav=(props)=>{
       {nav.usernav ? <ItemNav data={nav.usernav} /> : <></>}
       <Menu iconShape="circle">
         <MenuItem icon={<ImDownload2 />}>
-          <a href="/DIVEN-1.0.0-SNAPSHOT-1.apk" target="_blank">Aplicación Móvil</a>
+          <a href="/DIVEN-1.1.0-SNAPSHOT-1.apk" target="_blank">Aplicación Móvil</a>
         </MenuItem>
       </Menu>
       <div className="btn-logout-bar">
@@ -61,9 +61,8 @@ const Nav=(props)=>{
         </div>
       </SidebarFooter>
       {!collapsed?<div className={style.footer}>
-        <div>Copyright © 2022</div>
+        <div>Copyright © 2023</div>
         <div>Vicerrectorado de Investigación y Vinculación | UEB</div>
-        <a style={{color:'white'}} href="/humans/">Equipo de Desarrollo</a>
       </div>:<></>}
     </ProSidebar>)
 }
